@@ -1,24 +1,54 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Radio, Zap, Shield, ArrowUpRight, Flame, RefreshCw } from 'lucide-react';
+import { ethers } from 'ethers';
 import { LIVE_STREAM_BLOCK } from '../planConfig';
 
-export default function LiveGlobalQueueStream() {
+export default function LiveGlobalQueueStream({ 
+  totalUsers = 0, 
+  totalCompanyVolume = 0, 
+  onChainUsers = [] 
+}) {
   const [tickerItems, setTickerItems] = useState(LIVE_STREAM_BLOCK.initialTicker);
-  const [blockHeight, setBlockHeight] = useState(LIVE_STREAM_BLOCK.blockNumber);
-  const [turnover, setTurnover] = useState(LIVE_STREAM_BLOCK.dailyTurnoverUSD);
-  const [activeWallets, setActiveWallets] = useState(LIVE_STREAM_BLOCK.totalActiveWallets);
+  const [blockHeight, setBlockHeight] = useState(4892011);
 
-  // Live block stream effect (advancing block number and simulated on-chain transactions)
+  // Fetch real-time live BSC Testnet block height
   useEffect(() => {
+    let isMounted = true;
+    const fetchRealBlock = async () => {
+      try {
+        const provider = new ethers.JsonRpcProvider("https://bsc-testnet-rpc.publicnode.com");
+        const block = await provider.getBlockNumber();
+        if (isMounted && block) setBlockHeight(block);
+      } catch (e) {
+        console.warn('Block query error:', e);
+      }
+    };
+    fetchRealBlock();
+
     const interval = setInterval(() => {
       setBlockHeight(b => b + 1);
-      if (Math.random() > 0.4) {
-        setTurnover(t => t + Math.floor(Math.random() * 250 + 25));
-        if (Math.random() > 0.7) setActiveWallets(w => w + 1);
-      }
     }, 3000);
-    return () => clearInterval(interval);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
   }, []);
+
+  // Inject real on-chain users into ticker if available
+  useEffect(() => {
+    if (onChainUsers && onChainUsers.length > 0) {
+      const realItems = onChainUsers.map((u, i) => ({
+        id: `real-${u.index}`,
+        wallet: `${u.address.slice(0, 6)}...${u.address.slice(-4)}`,
+        action: `Monoline Position #${u.index}`,
+        detail: `Verified On-Chain Node on BSC Testnet`
+      }));
+      setTickerItems([...realItems, ...LIVE_STREAM_BLOCK.initialTicker]);
+    }
+  }, [onChainUsers]);
+
+  const displayWallets = totalUsers > 0 ? totalUsers : LIVE_STREAM_BLOCK.totalActiveWallets;
+  const displayTurnover = totalCompanyVolume > 0 ? totalCompanyVolume : LIVE_STREAM_BLOCK.dailyTurnoverUSD;
 
   return (
     <div className="live-stream-container glass-panel">
@@ -33,15 +63,15 @@ export default function LiveGlobalQueueStream() {
         <div className="stream-stats-row">
           <div className="s-stat">
             <span className="s-lbl">Total Active Global Wallets:</span>
-            <strong className="cyan-gradient-text">{activeWallets.toLocaleString()}</strong>
+            <strong className="cyan-gradient-text">{displayWallets.toLocaleString()}</strong>
           </div>
           <div className="s-stat">
             <span className="s-lbl">Global Monoline Depth:</span>
-            <strong className="gold-gradient-text">Level #{LIVE_STREAM_BLOCK.monolineDepth.toLocaleString()}</strong>
+            <strong className="gold-gradient-text">Level #{displayWallets > 0 ? displayWallets : LIVE_STREAM_BLOCK.monolineDepth}</strong>
           </div>
           <div className="s-stat">
             <span className="s-lbl">24H Turnover Volume:</span>
-            <strong className="green-txt">+${turnover.toLocaleString()} USDT</strong>
+            <strong className="green-txt">+${displayTurnover.toLocaleString()} USDT</strong>
           </div>
         </div>
       </div>

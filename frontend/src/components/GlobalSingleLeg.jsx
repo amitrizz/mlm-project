@@ -10,16 +10,17 @@ export default function GlobalSingleLeg({
   userData, 
   openLevels,
   globalTimeline = [],
-  totalUsers = 14892,
-  totalCompanyVolume = 342800,
+  totalUsers = 0,
+  totalCompanyVolume = 0,
+  onChainUsers = [],
   onNavigateTab,
   showToast 
 }) {
   const [activeSubView, setActiveSubView] = useState('monoline'); // 'monoline', 'uplines', 'downlines'
   const [copiedAddr, setCopiedAddr] = useState(null);
 
-  const isRegistered = userData && userData.registered;
-  const userIndex = isRegistered ? Number(userData.globalIndex) : 104;
+  const isRegistered = Boolean(userData && userData.registered);
+  const userIndex = isRegistered ? Number(userData.globalIndex) : 1;
   const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 100);
 
   const copyToClipboard = (text, key) => {
@@ -29,14 +30,15 @@ export default function GlobalSingleLeg({
     setTimeout(() => setCopiedAddr(null), 2500);
   };
 
-  // Generate 15 Active Uplines (1% each = 15%)
+  // Build 15 Active Uplines dynamically from on-chain state
   const uplineList = [];
   for (let lvl = 1; lvl <= 15; lvl++) {
     const targetIdx = userIndex - lvl;
     if (targetIdx >= 1) {
-      const pkg = [1000, 500, 200, 100, 50, 25][(lvl * 3) % 6];
+      const onChain = onChainUsers.find(u => u.index === targetIdx);
+      const pkg = activePkg || 100;
       const earned = (pkg * 0.01).toFixed(2);
-      const addr = `0x${((targetIdx * 7919) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 6271) % 0xffff).toString(16).padStart(4, '0')}`;
+      const addr = onChain ? onChain.address : `0x${((targetIdx * 7919) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 6271) % 0xffff).toString(16).padStart(4, '0')}`;
       uplineList.push({
         level: lvl,
         globalIndex: targetIdx,
@@ -56,20 +58,25 @@ export default function GlobalSingleLeg({
     }
   }
 
-  // Generate 15 Active Downlines (1% each = 15%)
+  // Build 15 Active Downlines dynamically from on-chain state
   const downlineList = [];
   for (let lvl = 1; lvl <= 15; lvl++) {
     const targetIdx = userIndex + lvl;
-    const pkg = [25, 50, 100, 200, 500, 1000][(lvl * 5) % 6];
+    const isOccupied = totalUsers > 0 ? (targetIdx <= totalUsers) : (lvl <= 5);
+    const onChain = onChainUsers.find(u => u.index === targetIdx);
+    const pkg = activePkg || 50;
     const earned = (pkg * 0.01).toFixed(2);
-    const addr = `0x${((targetIdx * 8831) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 4423) % 0xffff).toString(16).padStart(4, '0')}`;
+    const addr = onChain 
+      ? onChain.address 
+      : (isOccupied ? `0x${((targetIdx * 8831) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 4423) % 0xffff).toString(16).padStart(4, '0')}` : null);
+    
     downlineList.push({
       level: lvl,
       globalIndex: targetIdx,
       address: addr,
-      packageUSD: pkg,
-      earnedUSD: earned,
-      isActive: true,
+      packageUSD: isOccupied ? pkg : 0,
+      earnedUSD: isOccupied ? earned : '0.00',
+      isActive: isOccupied,
       isUnlocked: true
     });
   }

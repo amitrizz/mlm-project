@@ -13,6 +13,9 @@ export default function Dashboard({
   usdtBalance,
   userData,
   openLevels,
+  totalUsers = 0,
+  totalCompanyVolume = 0,
+  fomoJackpotUSD = 0,
   onOpenWithdraw,
   onBuyPackage,
   txLoading,
@@ -23,16 +26,23 @@ export default function Dashboard({
   const [sponsorInput, setSponsorInput] = useState('');
   const [copied, setCopied] = useState(false);
 
-  // 10-Minute Ghost Position Timer (09:59 Reverse Countdown)
+  // 10-Minute Ghost Position Timer (09:59 Reverse Countdown for unactivated wallets)
   const [ghostSeconds, setGhostSeconds] = useState(599); // 9m 59s
-  const [incomingTurnover, setIncomingTurnover] = useState(2450);
+
+  // Auto-detect sponsor from URL query (?ref=0x...)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get('ref');
+      if (ref && /^0x[a-fA-F0-9]{40}$/.test(ref)) {
+        setSponsorInput(ref);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setGhostSeconds(prev => (prev > 0 ? prev - 1 : 0));
-      if (Math.random() > 0.6) {
-        setIncomingTurnover(prev => prev + Math.floor(Math.random() * 100 + 25));
-      }
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -54,7 +64,7 @@ export default function Dashboard({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const isRegistered = userData && userData.registered;
+  const isRegistered = Boolean(userData && userData.registered);
   const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 0);
   const totalEarned = Number(userData?.totalEarnedUSD || 0);
   const hardCap3X = activePkg * 3;
@@ -67,6 +77,19 @@ export default function Dashboard({
   const claimableRoi = Number(userData?.claimableRoiUSD || 0);
   const claimableWorking = Number(userData?.claimableWorkingUSD || userData?.claimableEarnings || 0);
   const totalClaimable = claimableRoi + claimableWorking;
+
+  // Calculate 72H Cashback Surge time dynamically from on-chain registration timestamp
+  const getCashbackCountdown = () => {
+    if (!userData?.registrationTime) return "72:00:00";
+    const deadline = userData.registrationTime + (72 * 3600);
+    const now = Math.floor(Date.now() / 1000);
+    const diff = deadline - now;
+    if (diff <= 0) return "00:00:00 (Expired)";
+    const h = Math.floor(diff / 3600);
+    const m = Math.floor((diff % 3600) / 60);
+    const s = diff % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
 
   return (
     <div className="dashboard-wrap">
@@ -88,9 +111,9 @@ export default function Dashboard({
                 Incoming global participants are queuing underneath you!
               </p>
               <div className="gpb-live-queue">
-                <span>Live Incoming Turnover: <strong className="green-txt">+${incomingTurnover.toLocaleString()} USDT</strong></span>
+                <span>Protocol Volume: <strong className="green-txt">${Number(totalCompanyVolume || 0).toLocaleString()} USDT</strong></span>
                 <span className="dot">•</span>
-                <span>Queuing Behind You: <strong className="cyan-gradient-text">14 Global Wallets</strong></span>
+                <span>Active Participants: <strong className="cyan-gradient-text">{totalUsers || 0} Global Wallets</strong></span>
               </div>
             </div>
           </div>
@@ -119,7 +142,7 @@ export default function Dashboard({
           <div className="global-badge">
             <span className="lbl">GLOBAL MONOLINE ID</span>
             <strong className="id-val cyan-gradient-text">
-              #{userData?.globalIndex || (isConnected ? '104' : '---')}
+              {isRegistered && userData?.globalIndex ? `#${userData.globalIndex}` : (isConnected ? 'Pending Activation' : '---')}
             </strong>
           </div>
           <div className="user-meta">
@@ -289,7 +312,7 @@ export default function Dashboard({
         </div>
         <div className="cm-right">
           <span className="cm-timer-lbl">MISSION WINDOW</span>
-          <strong className="cm-timer cyan-gradient-text">72:00:00</strong>
+          <strong className="cm-timer cyan-gradient-text">{getCashbackCountdown()}</strong>
           <small className="cm-note">Unclaimed funds roll into Community Airdrop Pool</small>
         </div>
       </div>

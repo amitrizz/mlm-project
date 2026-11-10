@@ -34,8 +34,11 @@ export default function App() {
   const [userData, setUserData] = useState(null);
   const [openLevels, setOpenLevels] = useState({ halfLevels: 15, totalLevels: 30 });
   const [globalTimeline, setGlobalTimeline] = useState([]);
-  const [totalUsers, setTotalUsers] = useState(14892);
-  const [totalCompanyVolume, setTotalCompanyVolume] = useState(342800);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalCompanyVolume, setTotalCompanyVolume] = useState(0);
+  const [fomoJackpotUSD, setFomoJackpotUSD] = useState(0);
+  const [onChainUsers, setOnChainUsers] = useState([]);
+  const [userDirects, setUserDirects] = useState([]);
   const [txLoading, setTxLoading] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [isPresModalOpen, setIsPresModalOpen] = useState(false);
@@ -101,6 +104,85 @@ export default function App() {
     }
   };
 
+  // 1. Fetch Global Live Platform Stats from BSC Testnet Contract dynamically
+  const loadGlobalStats = async () => {
+    try {
+      const publicRpc = "https://bsc-testnet-rpc.publicnode.com";
+      const provider = new ethers.JsonRpcProvider(publicRpc);
+      const coreAddr = addresses.altruvaCore || addresses.sovereignCore;
+      if (!coreAddr) return;
+
+      const coreContract = new ethers.Contract(coreAddr, ALTRUVA_CORE_ABI, provider);
+
+      // Total registered users
+      let count = 0;
+      try {
+        const c1 = await coreContract.getGlobalUsersCount();
+        count = Number(c1);
+      } catch (e1) {
+        try {
+          const c2 = await coreContract.getMonolineCount();
+          count = Number(c2);
+        } catch (e2) {}
+      }
+      if (count > 0) setTotalUsers(count);
+
+      // Total protocol turnover
+      let vol = 0;
+      try {
+        const v1 = await coreContract.totalCompanyVolumeUSD();
+        vol = Number(ethers.formatUnits(v1, 18));
+      } catch (e1) {
+        try {
+          const v2 = await coreContract.totalSystemVolumeUSD();
+          vol = Number(ethers.formatUnits(v2, 18));
+        } catch (e2) {}
+      }
+      if (vol > 0) setTotalCompanyVolume(vol);
+
+      // FOMO / Community Jackpot Pool
+      let jackpot = 0;
+      try {
+        const j1 = await coreContract.jackpotPool();
+        jackpot = Number(ethers.formatUnits(j1, 18));
+      } catch (e1) {
+        try {
+          const j2 = await coreContract.fomoJackpotPool();
+          jackpot = Number(ethers.formatUnits(j2, 18));
+        } catch (e2) {}
+      }
+      if (jackpot > 0) setFomoJackpotUSD(jackpot);
+
+      // Fetch on-chain user addresses for live queue
+      if (count > 0) {
+        const fetched = [];
+        const maxFetch = Math.min(count, 30);
+        for (let i = 0; i < maxFetch; i++) {
+          try {
+            const uAddr = await coreContract.globalUsers(i);
+            if (uAddr && uAddr !== ethers.ZeroAddress) {
+              fetched.push({
+                index: i + 1,
+                address: uAddr
+              });
+            }
+          } catch(e) {}
+        }
+        if (fetched.length > 0) {
+          setOnChainUsers(fetched);
+        }
+      }
+    } catch (err) {
+      console.warn('loadGlobalStats error:', err);
+    }
+  };
+
+  useEffect(() => {
+    loadGlobalStats();
+    const interval = setInterval(loadGlobalStats, 20000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     if (isConnected && address) {
       setActiveTab('dashboard');
@@ -140,29 +222,47 @@ export default function App() {
       const coreAddr = addresses.sovereignCore || addresses.altruvaCore;
       if (coreAddr) {
         try {
-          const coreContract = new ethers.Contract(coreAddr, SOVEREIGN_CORE_ABI, provider);
+          const coreContract = new ethers.Contract(coreAddr, ALTRUVA_CORE_ABI, provider);
           const u = await coreContract.users(address);
           if (u && u.registered) {
+            const pkgUSD = Number(ethers.formatUnits(u.totalPackageUSD || u.activePackageUSD || 0n, 18));
+            const claimableTotal = Number(ethers.formatUnits(u.claimableEarnings || 0n, 18));
+            const roiSplit = u.claimableRoiUSD 
+              ? Number(ethers.formatUnits(u.claimableRoiUSD, 18))
+              : (claimableTotal * 0.4);
+            const workingSplit = u.claimableWorkingUSD 
+              ? Number(ethers.formatUnits(u.claimableWorkingUSD, 18))
+              : (claimableTotal * 0.6);
+
             setUserData({
               registered: u.registered,
               globalIndex: Number(u.globalIndex),
               referrer: u.referrer,
-              activePackageUSD: Number(ethers.formatUnits(u.activePackageUSD || u.totalPackageUSD || 0, 18)),
-              totalPackageUSD: Number(ethers.formatUnits(u.activePackageUSD || u.totalPackageUSD || 0, 18)),
-              cumulativeDepositUSD: Number(ethers.formatUnits(u.cumulativeDepositUSD || u.selfDepositUSD || 0, 18)),
-              cumulativeReinvestUSD: Number(ethers.formatUnits(u.cumulativeReinvestUSD || u.selfReinvestUSD || 0, 18)),
-              directCount: Number(u.directCount),
-              directActiveCount: Number(u.directActiveCount),
-              claimableRoiUSD: Number(ethers.formatUnits(u.claimableRoiUSD || 0, 18)),
-              claimableWorkingUSD: Number(ethers.formatUnits(u.claimableWorkingUSD || u.claimableEarnings || 0, 18)),
-              claimableEarnings: Number(ethers.formatUnits((u.claimableRoiUSD || 0n) + (u.claimableWorkingUSD || u.claimableEarnings || 0n), 18)),
-              totalWithdrawnUSD: Number(ethers.formatUnits(u.totalWithdrawnUSD || 0, 18)),
-              totalEarnedUSD: Number(ethers.formatUnits(u.totalEarnedUSD || 0, 18)),
-              isHardCapped: Boolean(u.isHardCapped),
+              activePackageUSD: pkgUSD,
+              totalPackageUSD: pkgUSD,
+              cumulativeDepositUSD: Number(ethers.formatUnits(u.selfDepositUSD || u.cumulativeDepositUSD || 0n, 18)),
+              cumulativeReinvestUSD: Number(ethers.formatUnits(u.selfReinvestUSD || u.cumulativeReinvestUSD || 0n, 18)),
+              directCount: Number(u.directCount || 0),
+              directActiveCount: Number(u.directActiveCount || u.directCount || 0),
+              claimableRoiUSD: roiSplit,
+              claimableWorkingUSD: workingSplit,
+              claimableEarnings: claimableTotal,
+              totalWithdrawnUSD: Number(ethers.formatUnits(u.totalWithdrawnUSD || 0n, 18)),
+              totalEarnedUSD: Number(ethers.formatUnits(u.totalEarnedUSD || 0n, 18)),
+              registrationTime: Number(u.registrationTime || 0),
+              isHardCapped: Boolean(u.isHardCapped || (pkgUSD > 0 && Number(ethers.formatUnits(u.totalEarnedUSD || 0n, 18)) >= pkgUSD * 3)),
               rebirthCount: Number(u.rebirthCount || 0),
-              isVipFastTrack: Boolean(u.isVipFastTrack)
+              isVipFastTrack: Boolean(u.isVipFastTrack || u.nexusQualified)
             });
             setOpenLevels({ halfLevels: 15, totalLevels: 30 });
+
+            // Fetch Direct Referrals
+            try {
+              const directsList = await coreContract.getDirects(address);
+              if (directsList && Array.isArray(directsList)) {
+                setUserDirects(directsList);
+              }
+            } catch(eDir) {}
           } else {
             setUserData({
               registered: false,
@@ -179,6 +279,7 @@ export default function App() {
               claimableEarnings: 0,
               totalWithdrawnUSD: 0,
               totalEarnedUSD: 0,
+              registrationTime: 0,
               isHardCapped: false,
               rebirthCount: 0,
               isVipFastTrack: false
@@ -201,6 +302,7 @@ export default function App() {
             claimableEarnings: 0,
             totalWithdrawnUSD: 0,
             totalEarnedUSD: 0,
+            registrationTime: 0,
             isHardCapped: false,
             rebirthCount: 0,
             isVipFastTrack: false
@@ -399,7 +501,11 @@ export default function App() {
             )}
 
             <div className="wallet-connect-wrapper">
-              <ConnectButton showBalance={false} chainStatus="icon" />
+              <ConnectButton 
+                showBalance={false} 
+                chainStatus="icon" 
+                accountStatus={{ smallScreen: 'address', largeScreen: 'full' }} 
+              />
             </div>
 
             <button 
@@ -472,7 +578,11 @@ export default function App() {
 
       {/* Real-Time Live Global Queue Stream Bar */}
       <div className="live-stream-bar-section">
-        <LiveGlobalQueueStream />
+        <LiveGlobalQueueStream 
+          totalUsers={totalUsers} 
+          totalCompanyVolume={totalCompanyVolume}
+          onChainUsers={onChainUsers}
+        />
       </div>
 
       {/* Main Content Area */}
@@ -506,6 +616,9 @@ export default function App() {
                 usdtBalance={usdtBalance}
                 userData={userData}
                 openLevels={openLevels}
+                totalUsers={totalUsers}
+                totalCompanyVolume={totalCompanyVolume}
+                fomoJackpotUSD={fomoJackpotUSD}
                 onOpenWithdraw={() => setIsWithdrawOpen(true)}
                 onBuyPackage={handleBuyPackage}
                 txLoading={txLoading}
@@ -522,6 +635,7 @@ export default function App() {
                 globalTimeline={globalTimeline}
                 totalUsers={totalUsers}
                 totalCompanyVolume={totalCompanyVolume}
+                onChainUsers={onChainUsers}
                 onNavigateTab={setActiveTab}
                 showToast={showToast}
               />
@@ -530,6 +644,7 @@ export default function App() {
             {activeTab === 'binary' && (
               <BinaryAndLevels 
                 userData={userData} 
+                userDirects={userDirects}
                 txLoading={txLoading} 
               />
             )}
@@ -537,6 +652,8 @@ export default function App() {
             {activeTab === 'leadership' && (
               <LeadershipPool 
                 userData={userData} 
+                fomoJackpotUSD={fomoJackpotUSD}
+                totalCompanyVolume={totalCompanyVolume}
                 onClaimLeadership={() => showToast('Claiming Daily Leadership Dividend...')}
                 txLoading={txLoading} 
               />

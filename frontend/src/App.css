@@ -4360,32 +4360,80 @@ body {
     padding: 0 12px;
     width: 100%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: nowrap;
   }
 
   .nav-brand {
     gap: 8px;
     min-width: 0;
-    flex-shrink: 1;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .brand-text-box {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
   }
 
   .brand-name {
-    font-size: 1.2rem;
-    letter-spacing: 1px;
+    font-size: 1.15rem;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
   }
 
   .brand-sub {
-    font-size: 0.6rem;
+    display: none !important; /* Hide long subtitle on mobile to give space for wallet button */
   }
 
   .nav-actions {
-    gap: 8px;
-    flex-shrink: 0;
+    gap: 6px;
+    flex-shrink: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .wallet-connect-wrapper {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .wallet-connect-wrapper > div {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    min-width: 0 !important;
   }
 
   .wallet-connect-wrapper button {
-    padding: 6px 12px !important;
-    font-size: 0.85rem !important;
-    height: auto !important;
+    padding: 5px 8px !important;
+    font-size: 0.76rem !important;
+    height: 32px !important;
+    border-radius: 8px !important;
+    min-width: 0 !important;
+    max-width: 125px !important;
+    white-space: nowrap !important;
+  }
+
+  .wallet-connect-wrapper button div {
+    max-width: 95px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .mobile-hamburger {
+    padding: 4px !important;
+    flex-shrink: 0 !important;
   }
 
   .nab-content {
@@ -4837,21 +4885,52 @@ body {
   }
 
   .nav-container {
-    padding: 0 10px;
+    padding: 0 8px !important;
+    gap: 6px !important;
+  }
+
+  .nav-brand {
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .nav-brand svg {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .brand-name {
-    font-size: 1.1rem;
-    letter-spacing: 0.8px;
+    font-size: 1.05rem !important;
+    letter-spacing: 0.5px !important;
   }
 
   .brand-sub {
-    font-size: 0.54rem;
+    display: none !important;
+  }
+
+  .nav-actions {
+    gap: 4px !important;
+    flex-shrink: 1 !important;
   }
 
   .wallet-connect-wrapper button {
-    padding: 5px 8px !important;
-    font-size: 0.78rem !important;
+    padding: 4px 6px !important;
+    font-size: 0.70rem !important;
+    height: 30px !important;
+    max-width: 105px !important;
+  }
+
+  .wallet-connect-wrapper button div {
+    max-width: 78px !important;
+  }
+
+  .mobile-hamburger {
+    padding: 3px !important;
+  }
+
+  .mobile-hamburger svg {
+    width: 20px !important;
+    height: 20px !important;
   }
 
   .manual-title {

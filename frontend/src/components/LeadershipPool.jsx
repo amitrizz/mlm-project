@@ -2,15 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { Award, Clock, TrendingUp, CheckCircle2, AlertCircle, RefreshCw, Sparkles, Shield, Gift, Zap, Flame } from 'lucide-react';
 import AltruvaLogo from './AltruvaLogo';
 
-export default function LeadershipPool({ userData, onClaimLeadership, txLoading }) {
-  const [fomoSeconds, setFomoSeconds] = useState(86400 * 0.72); // ~17h 16m left
+export default function LeadershipPool({ 
+  userData, 
+  fomoJackpotUSD = 0, 
+  totalCompanyVolume = 0, 
+  onClaimLeadership, 
+  txLoading 
+}) {
+  const [fomoSeconds, setFomoSeconds] = useState(86400 * 0.72);
   const selfPkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 100);
   const directCount = Number(userData?.directActiveCount || userData?.directCount || 0);
 
-  // FOMO Apocalypse Jackpot simulated 5% pool balance
-  const fomoJackpotPool = 17140; // 5% pool
-  const buyersShare70 = (fomoJackpotPool * 0.7).toFixed(0);
-  const sponsorsShare30 = (fomoJackpotPool * 0.3).toFixed(0);
+  // Dynamic FOMO Apocalypse Jackpot 5% pool from smart contract
+  const liveJackpot = Number(fomoJackpotUSD || 0) > 0 
+    ? Number(fomoJackpotUSD) 
+    : (Number(totalCompanyVolume || 0) * 0.05);
+  const buyersShare70 = (liveJackpot * 0.7).toFixed(2);
+  const sponsorsShare30 = (liveJackpot * 0.3).toFixed(2);
 
   // 72H Cashback surge status
   const isCashbackQualified = directCount >= 3;
@@ -42,7 +50,7 @@ export default function LeadershipPool({ userData, onClaimLeadership, txLoading 
           <div className="sh-stats-box">
             <div className="stat-mini">
               <span>FOMO Jackpot Pool (5%):</span>
-              <strong className="gold-gradient-text">${fomoJackpotPool.toLocaleString()} USDT</strong>
+              <strong className="gold-gradient-text">${Number(liveJackpot).toLocaleString()} USDT</strong>
             </div>
             <div className="stat-mini">
               <span>Next FOMO Settlement:</span>
@@ -79,7 +87,7 @@ export default function LeadershipPool({ userData, onClaimLeadership, txLoading 
 
           <div className="rc-pool-val">
             <span className="val-lbl">Current Round 24H Pot:</span>
-            <strong className="gold-gradient-text">${fomoJackpotPool.toLocaleString()} USDT</strong>
+            <strong className="gold-gradient-text">${Number(liveJackpot).toLocaleString()} USDT</strong>
           </div>
 
           <div className="fomo-timer-widget glass-panel">

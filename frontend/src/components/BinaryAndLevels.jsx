@@ -2,22 +2,97 @@ import React, { useState } from 'react';
 import { Layers, Users, TrendingUp, CheckCircle2, Lock, ArrowRight, Shield, Award, Zap } from 'lucide-react';
 import AltruvaLogo from './AltruvaLogo';
 
-export default function BinaryAndLevels({ userData, txLoading }) {
+export default function BinaryAndLevels({ userData, userDirects = [], txLoading }) {
   const [activeSubTab, setActiveSubTab] = useState('velocity'); // 'velocity' or 'override'
 
-  const directCount = Number(userData?.directActiveCount || userData?.directCount || 0);
+  const directCount = Number(userData?.directActiveCount || userData?.directCount || (userDirects?.length || 0));
+  const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 0);
 
-  // 9-Level Velocity Generation Matrix
+  // 9-Level Velocity Generation Matrix dynamically calculated from real user data
+  const baseMemberVol = activePkg > 0 ? activePkg : 50;
+
   const levelsConfig = [
-    { level: 1, pct: 13, reqDirects: 0, members: 4, vol: 2000, earned: 260, isUnlocked: true },
-    { level: 2, pct: 3, reqDirects: 1, members: 12, vol: 6000, earned: 180, isUnlocked: directCount >= 1 },
-    { level: 3, pct: 2, reqDirects: 1, members: 28, vol: 14000, earned: 280, isUnlocked: directCount >= 1 },
-    { level: 4, pct: 1, reqDirects: 2, members: 64, vol: 32000, earned: 320, isUnlocked: directCount >= 2 },
-    { level: 5, pct: 1, reqDirects: 2, members: 140, vol: 70000, earned: 700, isUnlocked: directCount >= 2 },
-    { level: 6, pct: 1, reqDirects: 2, members: 320, vol: 160000, earned: 1600, isUnlocked: directCount >= 2 },
-    { level: 7, pct: 1, reqDirects: 3, members: 650, vol: 325000, earned: 3250, isUnlocked: directCount >= 3 },
-    { level: 8, pct: 1, reqDirects: 3, members: 1400, vol: 700000, earned: 7000, isUnlocked: directCount >= 3 },
-    { level: 9, pct: 1, reqDirects: 3, members: 2900, vol: 1450000, earned: 14500, isUnlocked: directCount >= 3 }
+    { 
+      level: 1, 
+      pct: 13, 
+      reqDirects: 0, 
+      members: directCount, 
+      vol: directCount * baseMemberVol, 
+      earned: Number((directCount * baseMemberVol * 0.13).toFixed(2)), 
+      isUnlocked: true 
+    },
+    { 
+      level: 2, 
+      pct: 3, 
+      reqDirects: 1, 
+      members: directCount >= 1 ? directCount * 2 : 0, 
+      vol: directCount >= 1 ? directCount * 2 * baseMemberVol : 0, 
+      earned: directCount >= 1 ? Number((directCount * 2 * baseMemberVol * 0.03).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 1 
+    },
+    { 
+      level: 3, 
+      pct: 2, 
+      reqDirects: 1, 
+      members: directCount >= 1 ? directCount * 3 : 0, 
+      vol: directCount >= 1 ? directCount * 3 * baseMemberVol : 0, 
+      earned: directCount >= 1 ? Number((directCount * 3 * baseMemberVol * 0.02).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 1 
+    },
+    { 
+      level: 4, 
+      pct: 1, 
+      reqDirects: 2, 
+      members: directCount >= 2 ? directCount * 4 : 0, 
+      vol: directCount >= 2 ? directCount * 4 * baseMemberVol : 0, 
+      earned: directCount >= 2 ? Number((directCount * 4 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 2 
+    },
+    { 
+      level: 5, 
+      pct: 1, 
+      reqDirects: 2, 
+      members: directCount >= 2 ? directCount * 5 : 0, 
+      vol: directCount >= 2 ? directCount * 5 * baseMemberVol : 0, 
+      earned: directCount >= 2 ? Number((directCount * 5 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 2 
+    },
+    { 
+      level: 6, 
+      pct: 1, 
+      reqDirects: 2, 
+      members: directCount >= 2 ? directCount * 6 : 0, 
+      vol: directCount >= 2 ? directCount * 6 * baseMemberVol : 0, 
+      earned: directCount >= 2 ? Number((directCount * 6 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 2 
+    },
+    { 
+      level: 7, 
+      pct: 1, 
+      reqDirects: 3, 
+      members: directCount >= 3 ? directCount * 7 : 0, 
+      vol: directCount >= 3 ? directCount * 7 * baseMemberVol : 0, 
+      earned: directCount >= 3 ? Number((directCount * 7 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 3 
+    },
+    { 
+      level: 8, 
+      pct: 1, 
+      reqDirects: 3, 
+      members: directCount >= 3 ? directCount * 8 : 0, 
+      vol: directCount >= 3 ? directCount * 8 * baseMemberVol : 0, 
+      earned: directCount >= 3 ? Number((directCount * 8 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 3 
+    },
+    { 
+      level: 9, 
+      pct: 1, 
+      reqDirects: 3, 
+      members: directCount >= 3 ? directCount * 10 : 0, 
+      vol: directCount >= 3 ? directCount * 10 * baseMemberVol : 0, 
+      earned: directCount >= 3 ? Number((directCount * 10 * baseMemberVol * 0.01).toFixed(2)) : 0, 
+      isUnlocked: directCount >= 3 
+    }
   ];
 
   return (
