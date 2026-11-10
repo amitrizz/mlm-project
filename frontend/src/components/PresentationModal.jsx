@@ -45,7 +45,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
               <div className="cover-logo-center">
                 <AltruvaLogo size={110} />
               </div>
-              <h1 className="cover-title">SOVEREIGN GLOBAL</h1>
+              <h1 className="cover-title">ALTRUVA</h1>
               <div className="cover-tagline gold-gradient-text">PROTOCOL v3.3 (10X VIRAL EDITION)</div>
               <div className="cover-subtags">
                 <span>100% P2P Instant Split</span>

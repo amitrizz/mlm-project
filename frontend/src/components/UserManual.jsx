@@ -19,8 +19,8 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
 
   const faqs = [
     {
-      q: "What is Sovereign Global Protocol v3.3?",
-      a: "Sovereign Global Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. No protocol funds are retained in the contract ledger."
+      q: "What is Altruva Protocol v3.3?",
+      a: "Altruva Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. No protocol funds are retained in the contract ledger."
     },
     {
       q: "How does the 100% Instant Live Split work across the 5 pools?",
@@ -63,7 +63,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
           <Sparkles size={14} className="gold" /> {PROTOCOL_EDITION.toUpperCase()}
         </div>
         <h1 className="manual-title">
-          SOVEREIGN GLOBAL <span className="gold-gradient-text">PROTOCOL v3.3</span>
+          WELCOME TO <span className="gold-gradient-text">ALTRUVA v3.3</span>
         </h1>
         <p className="manual-subtitle cyan-gradient-text">
           100% P2P Instant Split · BNB Chain (BSC) · Pure USDT (BEP-20) · Zero Ledger Retention
@@ -292,7 +292,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
         <div className="manual-sec-header">
           <span className="sec-pill">FAQ</span>
           <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about Sovereign Global Protocol v3.3:</p>
+          <p>Everything you need to know about Altruva Protocol v3.3:</p>
         </div>
 
         <div className="faq-accordion-list">

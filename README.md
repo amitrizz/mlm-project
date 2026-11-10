@@ -1,4 +1,4 @@
-# 🌐 Sovereign Global Protocol v3.3
+# 🌐 Altruva Protocol v3.3
 ### Master Final Architecture & 10X Viral Edition
 
 A 100% Peer-to-Peer (P2P) decentralized mathematical protocol deployed on **BNB Smart Chain (BSC)** in pure **USDT (BEP-20)**.
@@ -56,3 +56,4 @@ VITE_BSC_TESTNET_RPC=https://bsc-testnet-rpc.publicnode.com
 VITE_BSC_RPC=https://binance.llamarpc.com
 VITE_DEFAULT_CHAIN_ID=97
 ```
+

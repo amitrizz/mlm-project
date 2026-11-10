@@ -45,7 +45,7 @@ export default function Dashboard({
 
   const referralUrl = typeof window !== 'undefined' && address 
     ? `${window.location.origin}/?ref=${address}` 
-    : 'https://sovereign.protocol/?ref=0x000...';
+    : 'https://altruva.live/?ref=0x000...';
 
   const copyReferral = () => {
     navigator.clipboard.writeText(referralUrl);
@@ -127,7 +127,7 @@ export default function Dashboard({
               {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Wallet Not Connected'}
             </span>
             <span className={`status-pill ${isRegistered ? 'active' : 'inactive'}`}>
-              {isRegistered ? '● Active Sovereign Node' : '○ Ghost Position Reserved'}
+              {isRegistered ? '● Active Altruva Node' : '○ Ghost Position Reserved'}
             </span>
             {userData?.isVipFastTrack && (
               <span className="vip-tag gold-gradient-text">★ VIP FAST-TRACK SLOT</span>
@@ -300,7 +300,7 @@ export default function Dashboard({
           <div className="sec-title-box">
             <AltruvaLogo size={28} />
             <div>
-              <h3>{isRegistered ? 'Upgrade / Top-Up Active Package' : 'Activate Sovereign Community Package'}</h3>
+              <h3>{isRegistered ? 'Upgrade / Top-Up Active Package' : 'Activate Altruva Community Package'}</h3>
               <p>100% USDT (BEP-20) P2P Live Split. Unlocks 15 Up + 15 Down Monoline and 2X ROI Cap.</p>
             </div>
           </div>
@@ -353,7 +353,7 @@ export default function Dashboard({
               <span>Processing Transaction on BNB Chain...</span>
             ) : (
               <span>
-                {isRegistered ? `Upgrade to $${selectedPkg} USDT Package` : `Activate $${selectedPkg} Sovereign Package`} ➔
+                {isRegistered ? `Upgrade to $${selectedPkg} USDT Package` : `Activate $${selectedPkg} Altruva Package`} ➔
               </span>
             )}
           </button>

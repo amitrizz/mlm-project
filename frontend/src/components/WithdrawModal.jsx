@@ -19,7 +19,7 @@ export default function WithdrawModal({
   const isWorkingUnlocked = directCount >= 3;
   const currentBalance = withdrawType === 'roi' ? Number(claimableRoi || 0) : Number(claimableWorking || 0);
 
-  // Split calculations based on Sovereign Global Protocol v3.3
+  // Split calculations based on Altruva Protocol v3.3
   // ROI: 40% Cash / 60% Reinvest (always unlocked)
   // Working: 70% Cash / 30% Reinvest (locked until 3 directs)
   const cashPercent = withdrawType === 'roi' ? 40 : 70;
@@ -48,7 +48,7 @@ export default function WithdrawModal({
             <AltruvaLogo size={32} />
             <div>
               <h3>Protocol Instant P2P Withdrawal</h3>
-              <span className="gold-gradient-text">SOVEREIGN GLOBAL PROTOCOL v3.3</span>
+              <span className="gold-gradient-text">ALTRUVA PROTOCOL v3.3</span>
             </div>
           </div>
           <button className="wm-close-btn" onClick={onClose}><X size={18} /></button>

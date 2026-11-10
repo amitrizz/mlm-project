@@ -4,9 +4,9 @@ import "./Chatbot.css";
 
 const PRESETS = [
   {
-    q: "What is Sovereign Global Protocol v3.3?",
+    q: "What is Altruva Protocol v3.3?",
     answers: [
-      "Sovereign Global Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% decentralized, peer-to-peer (P2P) mathematical protocol on BNB Chain (BSC) operating purely in USDT (BEP-20) with gas paid in BNB. No funds are retained in the contract ledger.",
+      "Altruva Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% decentralized, peer-to-peer (P2P) mathematical protocol on BNB Chain (BSC) operating purely in USDT (BEP-20) with gas paid in BNB. No funds are retained in the contract ledger.",
       "The protocol features 6 entry packages ($25, $50, $100, $200, $500, $1,000) with 100% live split across 5 automated community pools: 30% Quantum ROI, 30% Monoline Nexus, 25% Velocity Gen, 10% Cashback, and 5% FOMO Jackpot.",
       "Built with Genesis Admin Triangle Chain (top 3 fixed IDs) and zero protocol retention, guaranteeing 100% transparent on-chain mathematical liquidity.",
       "Enjoy unlimited multiple IDs from single or multiple wallets, dynamic compression, a 300% Hard-Cap Re-Birth Loop, and instant viral FOMO triggers."
@@ -95,7 +95,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "👋 Welcome to Sovereign Global Protocol v3.3 AI Assistant! Ask me anything about our 6 packages, 5 community pools, 10-minute Ghost Position, 72H Cashback Surge, 300% Re-Birth Loop, or withdrawal matrix."
+      text: "👋 Welcome to Altruva Protocol v3.3 AI Assistant! Ask me anything about our 6 packages, 5 community pools, 10-minute Ghost Position, 72H Cashback Surge, 300% Re-Birth Loop, or withdrawal matrix."
     }
   ]);
   const [input, setInput] = useState("");
@@ -120,12 +120,12 @@ export default function Chatbot() {
     setLoading(true);
 
     setTimeout(() => {
-      let botResponse = "I'm your Sovereign Global Protocol v3.3 AI guide! Check the User Manual for complete formulas or select one of the suggested topics below.";
+      let botResponse = "I'm your Altruva Protocol v3.3 AI guide! Check the User Manual for complete formulas or select one of the suggested topics below.";
 
       const lower = query.toLowerCase();
 
       if (lower.includes("package") || lower.includes("tier") || lower.includes("deposit") || lower.includes("25") || lower.includes("1000")) {
-        botResponse = "Sovereign Global Protocol v3.3 offers 6 packages: $25, $50, $100, $200, $500, and $1,000 USDT. Each package unlocks 15 Up + 15 Down monoline reach, 2X ROI Cap, and 300% (3X) Hard-Cap.";
+        botResponse = "Altruva Protocol v3.3 offers 6 packages: $25, $50, $100, $200, $500, and $1,000 USDT. Each package unlocks 15 Up + 15 Down monoline reach, 2X ROI Cap, and 300% (3X) Hard-Cap.";
       } else if (lower.includes("roi") || lower.includes("quantum") || lower.includes("passive") || lower.includes("3%")) {
         botResponse = "Time-Bomb Quantum ROI (30% Pool) pays 3% daily for the first 10 days, then 1% daily up to a 200% (2X) cap. Sponsoring 1 new direct resets the 3% daily rate for another 10 days! ROI withdrawals are always unlocked at 40% Cash / 60% Re-invest.";
       } else if (lower.includes("monoline") || lower.includes("single leg") || lower.includes("nexus") || lower.includes("15")) {
@@ -164,7 +164,7 @@ export default function Chatbot() {
       {!isOpen && (
         <button className="chatbot-launcher-btn" onClick={() => setIsOpen(true)}>
           <Bot size={22} className="bot-icon" />
-          <span className="btn-label">Sovereign AI Guide</span>
+          <span className="btn-label">Altruva AI Guide</span>
           <span className="pulse-indicator"></span>
         </button>
       )}
@@ -177,7 +177,7 @@ export default function Chatbot() {
                 <Bot size={20} className="gold" />
               </div>
               <div>
-                <h4>Sovereign Protocol v3.3 AI</h4>
+                <h4>Altruva Protocol v3.3 AI</h4>
                 <span className="online-status">● Live Blockchain Assistant</span>
               </div>
             </div>

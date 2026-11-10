@@ -136,7 +136,7 @@ export default function App() {
         }
       }
 
-      // 2. Fetch Sovereign Core User Account
+      // 2. Fetch Altruva Core User Account
       const coreAddr = addresses.sovereignCore || addresses.altruvaCore;
       if (coreAddr) {
         try {
@@ -260,7 +260,7 @@ export default function App() {
           claimableWorkingUSD: 45.00,
           claimableEarnings: 60.00
         }));
-        showToast(`🎉 $${amountUSD} USDT Sovereign Package Activated!`);
+        showToast(`🎉 $${amountUSD} USDT Altruva Package Activated!`);
       }
     } catch (err) {
       console.error(err);
@@ -332,7 +332,7 @@ export default function App() {
           <div className="nav-brand" onClick={() => setActiveTab(isConnected ? 'dashboard' : 'manual')}>
             <AltruvaLogo size={36} />
             <div className="brand-text-box">
-              <span className="brand-name">SOVEREIGN GLOBAL</span>
+              <span className="brand-name">ALTRUVA</span>
               <span className="brand-sub">PROTOCOL v3.3 · 10X VIRAL</span>
             </div>
           </div>

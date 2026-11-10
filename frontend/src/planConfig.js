@@ -1,10 +1,10 @@
 /**
- * 🌐 SOVEREIGN GLOBAL PROTOCOL v3.3
+ * 🌐 ALTRUVA PROTOCOL v3.3
  * (Master Final Architecture & 10X Viral Edition)
  * 100% P2P Instant Split on BNB Smart Chain (BSC) in USDT (BEP-20)
  */
 
-export const PROTOCOL_NAME = "Sovereign Global Protocol v3.3";
+export const PROTOCOL_NAME = "Altruva Protocol v3.3";
 export const PROTOCOL_EDITION = "Master Final Architecture & 10X Viral Edition";
 export const BLOCKCHAIN_NETWORK = "BNB Smart Chain (BSC)";
 export const TOKEN_STANDARD = "USDT (BEP-20)";
