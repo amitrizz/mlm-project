@@ -8,7 +8,7 @@ import {
   BookOpen, Menu, X, Wallet, ShieldCheck, Lock, AlertTriangle, Zap, Flame 
 } from 'lucide-react';
 
-import { ERC20_ABI, SOVEREIGN_CORE_ABI } from './abis';
+import { ERC20_ABI, SOVEREIGN_CORE_ABI, ALTRUVA_CORE_ABI } from './abis';
 import addresses from './addresses.json';
 import { PROTOCOL_NAME, PROTOCOL_EDITION } from './planConfig';
 
@@ -20,6 +20,7 @@ import GlobalSingleLeg from './components/GlobalSingleLeg';
 import BinaryAndLevels from './components/BinaryAndLevels';
 import LeadershipPool from './components/LeadershipPool';
 import WithdrawModal from './components/WithdrawModal';
+import FaucetModal from './components/FaucetModal';
 import LiveGlobalQueueStream from './components/LiveGlobalQueueStream';
 
 import './App.css';
@@ -42,6 +43,8 @@ export default function App() {
   const [txLoading, setTxLoading] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [isPresModalOpen, setIsPresModalOpen] = useState(false);
+  const [isFaucetModalOpen, setIsFaucetModalOpen] = useState(false);
+  const [faucetLoading, setFaucetLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -187,10 +190,20 @@ export default function App() {
     if (isConnected && address) {
       setActiveTab('dashboard');
       loadBlockchainData();
+
+      // Check if this connected wallet hasn't claimed 100 free USDT yet
+      try {
+        const key = `altruva_faucet_claimed_${address.toLowerCase()}`;
+        const hasClaimed = localStorage.getItem(key);
+        if (!hasClaimed) {
+          setIsFaucetModalOpen(true);
+        }
+      } catch (e) {}
     } else {
       setActiveTab('manual');
       setUserData(null);
       setUsdtBalance('0.00');
+      setIsFaucetModalOpen(false);
     }
   }, [isConnected, address, chainId]);
 
@@ -311,6 +324,77 @@ export default function App() {
       }
     } catch (err) {
       console.warn('Blockchain data load error:', err);
+    }
+  };
+
+  // 100 Free Testnet USDT Faucet Handler on BNB Smart Chain Testnet
+  const handleClaimFreeUSDT = async (targetAddr) => {
+    if (!isConnected || !address) {
+      showToast('Please connect your Web3 wallet first.');
+      return;
+    }
+    const recipient = targetAddr || address;
+    setFaucetLoading(true);
+    try {
+      if (chainId !== 97) {
+        showToast('Switching to BNB Smart Chain Testnet (Chain ID 97)...');
+        await handleSwitchToBscTestnet();
+      }
+
+      const signer = await getEthersSigner();
+      if (!addresses.usdt) {
+        showToast('USDT contract address not configured.');
+        return;
+      }
+
+      showToast('Initiating 100 Free Testnet USDT (BEP-20) mint...');
+      const amtWei = ethers.parseUnits('100', 18);
+
+      if (signer) {
+        const usdtContract = new ethers.Contract(addresses.usdt, ERC20_ABI, signer);
+        const tx = await usdtContract.mint(recipient, amtWei);
+        showToast('Minting 100 USDT on BNB Testnet... Please wait');
+        await tx.wait();
+        try {
+          localStorage.setItem(`altruva_faucet_claimed_${recipient.toLowerCase()}`, 'true');
+        } catch (e) {}
+        showToast('🎉 Success! 100 Free USDT credited to your wallet!');
+        setIsFaucetModalOpen(false);
+        await loadBlockchainData();
+
+        // Prompt wallet to add USDT token if supported
+        if (typeof window !== 'undefined' && window.ethereum) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_watchAsset',
+              params: {
+                type: 'ERC20',
+                options: {
+                  address: addresses.usdt,
+                  symbol: 'USDT',
+                  decimals: 18,
+                  image: 'https://cryptologos.cc/logos/tether-usdt-logo.png'
+                }
+              }
+            });
+          } catch (e) {}
+        }
+      } else {
+        setUsdtBalance(prev => (Number(prev) + 100).toFixed(2));
+        showToast('🎉 100 Testnet USDT added to your wallet balance!');
+        setIsFaucetModalOpen(false);
+      }
+    } catch (err) {
+      console.error('Faucet claim error:', err);
+      if (err.code === 'ACTION_REJECTED' || err.message?.includes('user rejected') || err.message?.includes('User rejected')) {
+        showToast('Mint transaction was rejected in your wallet.');
+      } else if (err.message?.includes('insufficient funds') || err.reason?.includes('insufficient funds')) {
+        showToast('Need a tiny amount of tBNB for gas! Get free tBNB at bnbchain.org/en/testnet-faucet');
+      } else {
+        showToast(err.reason || err.message || 'Could not claim 100 USDT.');
+      }
+    } finally {
+      setFaucetLoading(false);
     }
   };
 
@@ -492,6 +576,18 @@ export default function App() {
 
             {isConnected && (
               <button 
+                className="claim-faucet-nav-btn desktop-only"
+                onClick={() => handleClaimFreeUSDT()}
+                disabled={faucetLoading}
+                title="Claim 100 Free USDT on BNB Testnet"
+              >
+                <Gift size={14} className="gold" /> 
+                {faucetLoading ? 'Minting...' : '100 Free USDT'}
+              </button>
+            )}
+
+            {isConnected && (
+              <button 
                 className="nav-withdraw-btn desktop-only"
                 onClick={() => setIsWithdrawOpen(true)}
                 disabled={Number(userData?.claimableEarnings || 0) < 5}
@@ -525,6 +621,9 @@ export default function App() {
               <>
                 <button onClick={() => { setActiveTab('dashboard'); setMobileMenuOpen(false); }}>
                   📊 Dashboard
+                </button>
+                <button onClick={() => { handleClaimFreeUSDT(); setMobileMenuOpen(false); }}>
+                  🎁 Claim 100 Free USDT (BNB Test)
                 </button>
                 <button onClick={() => { setActiveTab('singleLeg'); setMobileMenuOpen(false); }}>
                   👥 Monoline Nexus Yield (30%)
@@ -624,6 +723,8 @@ export default function App() {
                 txLoading={txLoading}
                 onNavigateTab={setActiveTab}
                 showToast={showToast}
+                onClaimFaucet={() => handleClaimFreeUSDT()}
+                faucetLoading={faucetLoading}
               />
             )}
 
@@ -638,6 +739,8 @@ export default function App() {
                 onChainUsers={onChainUsers}
                 onNavigateTab={setActiveTab}
                 showToast={showToast}
+                onClaimFaucet={() => handleClaimFreeUSDT()}
+                faucetLoading={faucetLoading}
               />
             )}
 
@@ -704,6 +807,15 @@ export default function App() {
       )}
 
       {/* Modals */}
+      <FaucetModal
+        isOpen={isFaucetModalOpen}
+        onClose={() => setIsFaucetModalOpen(false)}
+        onClaim={() => handleClaimFreeUSDT()}
+        address={address}
+        usdtBalance={usdtBalance}
+        loading={faucetLoading}
+      />
+
       <WithdrawModal
         isOpen={isWithdrawOpen}
         onClose={() => setIsWithdrawOpen(false)}

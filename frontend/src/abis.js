@@ -7,7 +7,8 @@ export const ERC20_ABI = [
   "function allowance(address owner, address spender) view returns (uint256)",
   "function approve(address spender, uint256 value) returns (bool)",
   "function transfer(address to, uint256 value) returns (bool)",
-  "function transferFrom(address from, address to, uint256 value) returns (bool)"
+  "function transferFrom(address from, address to, uint256 value) returns (bool)",
+  "function mint(address to, uint256 amount) external"
 ];
 
 // Unified Altruva / Sovereign Protocol ABI supporting both on-chain deployed versions

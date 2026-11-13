@@ -20,7 +20,9 @@ export default function Dashboard({
   onBuyPackage,
   txLoading,
   onNavigateTab,
-  showToast
+  showToast,
+  onClaimFaucet,
+  faucetLoading
 }) {
   const [selectedPkg, setSelectedPkg] = useState(100);
   const [sponsorInput, setSponsorInput] = useState('');
@@ -327,10 +329,46 @@ export default function Dashboard({
               <p>100% USDT (BEP-20) P2P Live Split. Unlocks 15 Up + 15 Down Monoline and 2X ROI Cap.</p>
             </div>
           </div>
-          <div className="wallet-bal-pill">
-            <span>Wallet USDT:</span> <strong>${Number(usdtBalance || 0).toFixed(2)}</strong>
+          <div className="wallet-bal-pill-group">
+            <div className="wallet-bal-pill">
+              <span>Wallet USDT:</span> <strong>${Number(usdtBalance || 0).toFixed(2)}</strong>
+            </div>
+            {onClaimFaucet && (
+              <button 
+                type="button"
+                className="faucet-pill-btn" 
+                onClick={onClaimFaucet}
+                disabled={faucetLoading}
+                title="Claim 100 Free Testnet USDT on BNB Smart Chain"
+              >
+                <Gift size={13} /> {faucetLoading ? 'Claiming...' : '+100 USDT Free'}
+              </button>
+            )}
           </div>
         </div>
+
+        {/* 100 USDT Free Welcome Faucet Banner (Visible if wallet balance < 100) */}
+        {Number(usdtBalance || 0) < 100 && onClaimFaucet && (
+          <div className="faucet-banner glass-panel">
+            <div className="fb-left">
+              <div className="fb-icon-box">
+                <Gift size={22} className="pulse" />
+              </div>
+              <div className="fb-text">
+                <h4>🎁 Claim 100 Free USDT (BEP-20) on BNB Testnet</h4>
+                <p>New to Altruva? Get 100 Free Testnet USDT instantly deposited to test Tier 1 ($25), Tier 2 ($50), or Tier 3 ($100) packages!</p>
+              </div>
+            </div>
+            <button 
+              type="button"
+              className="fb-btn"
+              onClick={onClaimFaucet}
+              disabled={faucetLoading}
+            >
+              <Sparkles size={16} /> {faucetLoading ? 'Minting 100 USDT...' : 'Claim 100 Free USDT'}
+            </button>
+          </div>
+        )}
 
         {/* 6 Preset Packages */}
         <div className="preset-pkgs-grid">
