@@ -36,16 +36,13 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
     uint256 public constant ADMIN_RESERVE_BPS = 1500;
     address public adminMasterWallet;
 
-    // Standard Packages ($25 to $6,400)
+    // Standard Packages ($25 to $1,000)
     uint256 public constant PKG_25   = 25 * 10**18;
     uint256 public constant PKG_50   = 50 * 10**18;
     uint256 public constant PKG_100  = 100 * 10**18;
     uint256 public constant PKG_200  = 200 * 10**18;
     uint256 public constant PKG_500  = 500 * 10**18;
     uint256 public constant PKG_1000 = 1000 * 10**18;
-    uint256 public constant PKG_2000 = 2000 * 10**18;
-    uint256 public constant PKG_3200 = 3200 * 10**18;
-    uint256 public constant PKG_6400 = 6400 * 10**18;
 
     // Velocity Matrix Percents (Basis Points / 10000)
     // L1: 13%, L2: 3%, L3: 2%, L4-L10: 1% each (Total = 2500 = 25%)
@@ -162,9 +159,9 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
         u.registered = true;
         u.globalIndex = idx;
         u.referrer = _sponsor;
-        u.activePackageUSD = PKG_6400;
-        u.totalPackageUSD = PKG_6400;
-        u.cumulativeDepositUSD = PKG_6400;
+        u.activePackageUSD = PKG_1000;
+        u.totalPackageUSD = PKG_1000;
+        u.cumulativeDepositUSD = PKG_1000;
         u.registrationTime = block.timestamp;
         u.packageActivationTime = block.timestamp;
         u.lastDirectTimestamp = block.timestamp;
@@ -258,8 +255,7 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
     function _validatePackage(uint256 _pkg) internal pure {
         require(
             _pkg == PKG_25   || _pkg == PKG_50   || _pkg == PKG_100  ||
-            _pkg == PKG_200  || _pkg == PKG_500  || _pkg == PKG_1000 ||
-            _pkg == PKG_2000 || _pkg == PKG_3200 || _pkg == PKG_6400,
+            _pkg == PKG_200  || _pkg == PKG_500  || _pkg == PKG_1000,
             "Invalid package tier"
         );
     }
@@ -376,7 +372,7 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
         if (_pkgUSD < PKG_200)  return 20; // $100 = 20 levels
         if (_pkgUSD < PKG_500)  return 25; // $200 = 25 levels
         if (_pkgUSD < PKG_1000) return 30; // $500 = 30 levels
-        return 40;                         // $1000 to $6400 = 40 levels
+        return 40;                         // $1000 = 40 levels
     }
 
     /**

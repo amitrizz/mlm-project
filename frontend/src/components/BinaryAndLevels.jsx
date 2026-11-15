@@ -127,7 +127,7 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
               { pkg: "$100 Package", depth: "20 Levels Deep", target: 100 },
               { pkg: "$200 Package", depth: "25 Levels Deep", target: 200 },
               { pkg: "$500 Package", depth: "30 Levels Deep", target: 500 },
-              { pkg: "$1,000 to $6,400", depth: "40 Levels Deep", target: 1000 }
+              { pkg: "$1,000 Package", depth: "40 Levels Deep", target: 1000 }
             ].map((tier, idx) => (
               <div 
                 key={idx} 

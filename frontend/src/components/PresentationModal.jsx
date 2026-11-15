@@ -64,7 +64,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
           {currentSlide === 2 && (
             <div className="slide-card">
               <div className="slide-badge">INFRASTRUCTURE & TIERS</div>
-              <h2 className="slide-title">THE ROYAL PACKAGES ($25 TO $6,400)</h2>
+              <h2 className="slide-title">THE ROYAL PACKAGES ($25 TO $1,000)</h2>
               <p className="slide-desc">Choose from 6 transparent tiers on BNB Smart Chain with 100% USDT instant P2P settlement:</p>
               <div className="tiers-slide-grid">
                 {PROTOCOL_PACKAGES.map(pkg => (

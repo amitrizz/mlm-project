@@ -19,17 +19,14 @@ export const GENESIS_ADMIN_TRIANGLE = [
   { id: 3, label: "Admin Right Core #3", address: "0x98EE44B1D0f5e14d31B91738CaC88d4033333333" }
 ];
 
-// Sequential Packages ($25 to $6,400)
+// Sequential Packages ($25 to $1,000)
 export const PROTOCOL_PACKAGES = [
   { val: 25, label: "$25 STARTER", tier: "Tier 1", roiCap: 50, hardCap3X: 75, monolineReach: "2 Up + 1 Down", maxDepth: 10 },
   { val: 50, label: "$50 RUNNER", tier: "Tier 2", roiCap: 100, hardCap3X: 150, monolineReach: "4 Up + 2 Down", maxDepth: 15 },
   { val: 100, label: "$100 PRO", tier: "Tier 3", roiCap: 200, hardCap3X: 300, monolineReach: "6 Up + 3 Down", maxDepth: 20 },
   { val: 200, label: "$200 ELITE", tier: "Tier 4", roiCap: 400, hardCap3X: 600, monolineReach: "8 Up + 4 Down", maxDepth: 25 },
   { val: 500, label: "$500 MASTER", tier: "Tier 5", roiCap: 1000, hardCap3X: 1500, monolineReach: "10 Up + 5 Down", maxDepth: 30 },
-  { val: 1000, label: "$1,000 TITAN VIP", tier: "Tier 6", roiCap: 2000, hardCap3X: 3000, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
-  { val: 2000, label: "$2,000 ROYAL", tier: "Tier 7", roiCap: 4000, hardCap3X: 6000, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
-  { val: 3200, label: "$3,200 IMPERIAL", tier: "Tier 8", roiCap: 6400, hardCap3X: 9600, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
-  { val: 6400, label: "$6,400 EMPEROR", tier: "Tier 9", roiCap: 12800, hardCap3X: 19200, monolineReach: "10 Up + 5 Down", maxDepth: 40 }
+  { val: 1000, label: "$1,000 TITAN VIP", tier: "Tier 6", roiCap: 2000, hardCap3X: 3000, monolineReach: "10 Up + 5 Down", maxDepth: 40 }
 ];
 
 // Package-Wise Globaline Reach Tiers (Package ke hisab se)
@@ -39,7 +36,7 @@ export const GLOBALINE_PACKAGE_TIERS = [
   { pkg: 100, label: "$100 Package", up: 6, down: 3, total: 9, reach: "6 Up + 3 Down" },
   { pkg: 200, label: "$200 Package", up: 8, down: 4, total: 12, reach: "8 Up + 4 Down" },
   { pkg: 500, label: "$500 Package", up: 10, down: 5, total: 15, reach: "10 Up + 5 Down" },
-  { pkg: 1000, label: "$1,000 to $6,400", up: 10, down: 5, total: 15, reach: "10 Up + 5 Down (Max)" }
+  { pkg: 1000, label: "$1,000 Package", up: 10, down: 5, total: 15, reach: "10 Up + 5 Down (Max)" }
 ];
 
 export const getGlobalineReach = (pkgUSD) => {
@@ -59,7 +56,7 @@ export const PACKAGE_DEPTH_MATRIX = [
   { pkg: 100, depth: 20, label: "$100 Package", unlocked: "20 Levels Deep" },
   { pkg: 200, depth: 25, label: "$200 Package", unlocked: "25 Levels Deep" },
   { pkg: 500, depth: 30, label: "$500 Package", unlocked: "30 Levels Deep" },
-  { pkg: 1000, depth: 40, label: "$1,000 to $6,400 Package", unlocked: "40 Levels Deep" }
+  { pkg: 1000, depth: 40, label: "$1,000 Package", unlocked: "40 Levels Deep" }
 ];
 
 // 5 Elite Community Pools (100% split of 85% base)

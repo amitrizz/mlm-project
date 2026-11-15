@@ -24,7 +24,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
     },
     {
       q: "How does the Live Split work across the 5 Elite Pools?",
-      a: "Every package activation ($25 to $6,400) splits instantly on-chain: 30% to Quantum Genesis ROI, 30% to Globaline Nexus Grid (10 Up + 5 Down active wallets), 25% to Velocity Matrix Bonus (up to 40 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H Jackpot Reward Pool."
+      a: "Every package activation ($25 to $1,000) splits instantly on-chain: 30% to Quantum Genesis ROI, 30% to Globaline Nexus Grid (10 Up + 5 Down active wallets), 25% to Velocity Matrix Bonus (up to 40 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H Jackpot Reward Pool."
     },
     {
       q: "How does the Quantum Genesis ROI operate?",
@@ -36,7 +36,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
     },
     {
       q: "How does the Package-Wise Depth Matrix work in Velocity Matrix (Up to 40 Levels)?",
-      a: "Your active package tier unlocks generation depth: $25 = 10 Levels, $50 = 15 Levels, $100 = 20 Levels, $200 = 25 Levels, $500 = 30 Levels, and $1,000 to $6,400 = 40 Levels Deep! Level 1 pays 13% fixed (0 directs), L2-L3 pay 3% & 2% (1 direct), L4-L6 pay 1% each (2 directs), and L7-L40 pay 1% each (3 directs)."
+      a: "Your active package tier unlocks generation depth: $25 = 10 Levels, $50 = 15 Levels, $100 = 20 Levels, $200 = 25 Levels, $500 = 30 Levels, and $1,000 = 40 Levels Deep! Level 1 pays 13% fixed (0 directs), L2-L3 pay 3% & 2% (1 direct), L4-L6 pay 1% each (2 directs), and L7-L40 pay 1% each (3 directs)."
     },
     {
       q: "What is the Royal Throne Leaderboard and Photo-Upload Hub?",
@@ -69,7 +69,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
           The Royal VIP Edition · BNB Chain (BSC) · Pure USDT (BEP-20) · 40-Level Compounding Matrix
         </p>
         <p className="manual-intro">
-          Official Master VIP Blueprint: Complete breakdown of the 9 Packages ($25 to $6,400), 5 Elite Pools, 
+          Official Master VIP Blueprint: Complete breakdown of the 6 Packages ($25 to $1,000), 5 Elite Pools, 
           10-Minute Ghost Position, 72H Alpha Cashback Surge, Royal Throne Leaderboard, Photo-Upload Hub, and the 40-Level Matrix.
         </p>
 
