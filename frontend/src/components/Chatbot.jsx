@@ -8,14 +8,14 @@ const PRESETS = [
     answers: [
       "Altruva Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% decentralized, peer-to-peer (P2P) mathematical protocol on BNB Chain (BSC) operating purely in USDT (BEP-20) with gas paid in BNB. No funds are retained in the contract ledger.",
       "The protocol features 6 entry packages ($25, $50, $100, $200, $500, $1,000) with 100% live split across 5 automated community pools: 30% Quantum ROI, 30% Monoline Nexus, 25% Velocity Gen, 10% Cashback, and 5% FOMO Jackpot.",
-      "Built with Genesis Admin Triangle Chain (top 3 fixed IDs) and zero protocol retention, guaranteeing 100% transparent on-chain mathematical liquidity.",
+      "Built with immutable smart contract logic and zero protocol retention, guaranteeing 100% transparent on-chain mathematical liquidity.",
       "Enjoy unlimited multiple IDs from single or multiple wallets, dynamic compression, a 300% Hard-Cap Re-Birth Loop, and instant viral FOMO triggers."
     ]
   },
   {
     q: "How does the Time-Bomb Quantum ROI (30% Pool) work?",
     answers: [
-      "Quantum ROI is a global passive yield pool with a 2X (200%) cap. You earn 3.0% daily for the first 10 days, followed by 1.0% daily thereafter.",
+      "Quantum ROI is a global passive yield pool. You earn 3.0% daily for the first 10 days, followed by 1.0% daily thereafter.",
       "Viral Reset Mechanism: Sponsoring 1 new direct referral immediately resets the 3.0% daily yield for another 10 days!",
       "Withdrawal Terms: Quantum ROI withdrawals are ALWAYS unlocked with ZERO direct sponsor condition. The withdrawal ratio is 40% Cash sent to your wallet and 60% Auto Re-invested back into the 5 pools.",
       "Minimum withdrawal is strictly $5 USDT, processed on-chain in real-time."
@@ -26,8 +26,7 @@ const PRESETS = [
     answers: [
       "Every member is positioned chronologically in a global single leg (Monoline ID #1, #2, #3...).",
       "You earn a 1% commission on package activations and auto-reinvestments from 15 active wallets above you and 15 active wallets below you (30 wallets total = 30% yield).",
-      "Dynamic Compression: Inactive or retired accounts are automatically skipped so you always earn from 30 active wallets!",
-      "Breakage or out-of-bounds shares are securely captured by the Genesis Admin Triangle."
+      "Dynamic Compression: Inactive or retired accounts are automatically skipped so you always earn from active wallets!",
     ]
   },
   {
@@ -56,7 +55,7 @@ const PRESETS = [
     ]
   },
   {
-    q: "What is the FOMO Apocalypse Jackpot (5% Pool)?",
+    q: "What is the Jackpot Reward (5% Pool)?",
     answers: [
       "It is an automated 24-hour countdown jackpot pool funded by 5% of all ecosystem volume.",
       "Settlement Rule: 70% of the jackpot is shared equally among the last 50 paid users, and 30% is split among the top 3 direct sponsors of that round.",
@@ -82,10 +81,10 @@ const PRESETS = [
     ]
   },
   {
-    q: "What is the Admin Genesis Triangle and Dynamic Infinity Override?",
+    q: "How does the Smart Contract guarantee Security?",
     answers: [
-      "Genesis Triangle: The top 3 fixed IDs are hardcoded to the admin team, capturing all unearned spillovers, breakage, and overflow funds.",
-      "Dynamic Infinity Override: When leaders build 4 or more directs, an infinity override triggers on all lifetime turnover (4–10 directs: 5%, 11–25 directs: 7%, 26+ directs: 10% Master Royalty) channeled to the Admin Master Wallet."
+      "Altruva Protocol is 100% decentralized with on-chain instant P2P distribution on the BNB Chain.",
+      "All pool dividends and direct commissions are executed directly by verifiable smart contracts with zero counterparty risk."
     ]
   }
 ];
@@ -137,13 +136,13 @@ export default function Chatbot() {
       } else if (lower.includes("cashback") || lower.includes("72h") || lower.includes("72 hour") || lower.includes("refund")) {
         botResponse = "72H Alpha Cashback Surge (10% Pool): Sponsor 3 active direct members within 72 hours of your activation to receive an instant 100% refund of your joining fee!";
       } else if (lower.includes("fomo") || lower.includes("jackpot") || lower.includes("24h")) {
-        botResponse = "FOMO Apocalypse Jackpot (5% Pool) is a 24-hour countdown pool: 70% is shared equally among the last 50 paid users, and 30% is split among the top 3 direct sponsors of that round!";
+        botResponse = "Jackpot Reward (5% Pool) is a 24-hour countdown pool: 70% is shared equally among the last 50 paid users, and 30% is split among the top 3 direct sponsors of that round!";
       } else if (lower.includes("hard cap") || lower.includes("rebirth") || lower.includes("re-birth") || lower.includes("300%") || lower.includes("3x")) {
         botResponse = "Zero-Leak 300% Hard-Cap: When your total income reaches 300% (3X) of your package, your ID retires and auto-spawns a new Re-Birth ID at the bottom of the Monoline (or VIP Fast-Track queue if you have 3+ directs in 30 days).";
       } else if (lower.includes("withdraw") || lower.includes("payout") || lower.includes("min") || lower.includes("5")) {
         botResponse = "Global minimum withdrawal is $5 USDT. ROI withdrawals are always unlocked (40% Cash / 60% Re-invest). Working network earnings are locked until you have 3 direct referrals, unlocking at 70% Cash / 30% Re-invest.";
-      } else if (lower.includes("admin") || lower.includes("triangle") || lower.includes("override") || lower.includes("royalty")) {
-        botResponse = "The Genesis Admin Triangle consists of the top 3 hardcoded IDs capturing spillovers. From the 4th direct onwards, leaders trigger 5% to 10% Dynamic Infinity Overrides routed to the Master Admin Wallet.";
+      } else if (lower.includes("security") || lower.includes("contract") || lower.includes("audit") || lower.includes("safety")) {
+        botResponse = "Altruva Protocol operates 100% on-chain with automated P2P distributions, immutable logic, and zero counterparty risk on BNB Chain.";
       } else {
         const matchedPreset = PRESETS.find((p) =>
           lower.includes(p.q.toLowerCase().slice(0, 10))

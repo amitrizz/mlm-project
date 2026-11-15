@@ -297,20 +297,44 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
      * @dev Pool 2: Globaline Nexus Grid (30%)
      * 10 active wallets above and 5 active wallets below @ 2% each (Total = 15 wallets @ 2% = 30%)
      */
+    /**
+     * @dev Package-wise Globaline Reach Calculator (Package ke hisab se)
+     */
+    function getGlobalineReach(uint256 _pkgUSD) public pure returns (uint256 maxUp, uint256 maxDown) {
+        if (_pkgUSD < PKG_50) {
+            return (2, 1);  // $25 = 2 Up + 1 Down
+        } else if (_pkgUSD < PKG_100) {
+            return (4, 2);  // $50 = 4 Up + 2 Down
+        } else if (_pkgUSD < PKG_200) {
+            return (6, 3);  // $100 = 6 Up + 3 Down
+        } else if (_pkgUSD < PKG_500) {
+            return (8, 4);  // $200 = 8 Up + 4 Down
+        } else {
+            return (10, 5); // $500+ = 10 Up + 5 Down (Max)
+        }
+    }
+
     function _distributeGlobalineGrid(address _user, uint256 _distBase) internal {
         uint256 twoPercent = (_distBase * 2) / 100;
         uint256 userIdx = users[_user].globalIndex; // 1-based
         uint256 uplineCount = 0;
         uint256 downlineCount = 0;
 
-        // 10 Active Uplines (2% each = 20%)
+        // 10 Active Uplines (2% each = 20%, qualified package ke hisab se)
         if (userIdx > 1) {
             for (uint256 i = userIdx - 1; i >= 1 && uplineCount < 10; i--) {
                 address up = monolineUsers[i - 1];
                 if (users[up].activePackageUSD > 0 && !users[up].isHardCapped) {
-                    _creditEarnings(up, twoPercent, false);
+                    (uint256 maxUp, ) = getGlobalineReach(users[up].activePackageUSD);
+                    uint256 dist = userIdx - i;
+                    if (dist <= maxUp) {
+                        _creditEarnings(up, twoPercent, false);
+                        emit GlobalineYieldPaid(_user, up, twoPercent, uplineCount + 1, true);
+                    } else {
+                        // Unearned due to lower package tier routes to Genesis Apex
+                        _creditEarnings(adminApex1, twoPercent, false);
+                    }
                     uplineCount++;
-                    emit GlobalineYieldPaid(_user, up, twoPercent, uplineCount, true);
                 }
             }
         }
@@ -320,13 +344,20 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
             _creditEarnings(adminApex1, breakage, false);
         }
 
-        // 5 Active Downlines (2% each = 10%)
+        // 5 Active Downlines (2% each = 10%, qualified package ke hisab se)
         for (uint256 i = userIdx + 1; i <= monolineUsers.length && downlineCount < 5; i++) {
             address down = monolineUsers[i - 1];
             if (users[down].activePackageUSD > 0 && !users[down].isHardCapped) {
-                _creditEarnings(down, twoPercent, false);
+                (, uint256 maxDown) = getGlobalineReach(users[down].activePackageUSD);
+                uint256 dist = i - userIdx;
+                if (dist <= maxDown) {
+                    _creditEarnings(down, twoPercent, false);
+                    emit GlobalineYieldPaid(_user, down, twoPercent, downlineCount + 1, false);
+                } else {
+                    // Unearned due to lower package tier routes to Genesis Left/Right
+                    _creditEarnings(adminLeft2, twoPercent, false);
+                }
                 downlineCount++;
-                emit GlobalineYieldPaid(_user, down, twoPercent, downlineCount, false);
             }
         }
         // Breakage for unfilled downlines routes to Genesis Left/Right
@@ -678,3 +709,4 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
         return directs[_user];
     }
 }
+

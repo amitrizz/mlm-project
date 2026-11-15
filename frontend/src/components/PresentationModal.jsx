@@ -11,7 +11,7 @@ import {
 
 export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const totalSlides = 10;
+  const totalSlides = 9;
 
   if (!isOpen) return null;
 
@@ -72,12 +72,11 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
                     <span className="t-name gold-gradient-text">{pkg.label}</span>
                     <strong className="t-price">${pkg.val} USDT</strong>
                     <span className="t-detail">{pkg.monolineReach} Active Wallets</span>
-                    <small>2X ROI: ${pkg.roiCap} | 3X Cap: ${pkg.hardCap3X}</small>
                   </div>
                 ))}
               </div>
               <div className="slide-callout-box glass-panel">
-                <strong>Genesis Setup:</strong> Top 3 fixed IDs (Admin Triangle Chain) are hardcoded at Genesis to capture all working spillovers and unclaimed breakage.
+                <strong>Protocol Liquidity:</strong> 100% automated on-chain execution with P2P instant split protocol on BNB Smart Chain.
               </div>
             </div>
           )}
@@ -111,7 +110,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
                 </div>
                 <div className="pool-overview-card glass-panel wide">
                   <span className="p-share green-txt">5%</span>
-                  <h4>5. FOMO Apocalypse Jackpot</h4>
+                  <h4>5. Jackpot Reward</h4>
                   <p>24-hour countdown pool: 70% shared among last 50 paid users and 30% among top 3 direct sponsors.</p>
                 </div>
               </div>
@@ -134,7 +133,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
                 <div className="roi-phase-card">
                   <span className="phase-lbl gold-gradient-text">DAY 11 ONWARDS</span>
                   <strong className="phase-rate">1.0% DAILY</strong>
-                  <p>Sustained baseline yield until 2X (200%) cap.</p>
+                  <p>Sustained baseline daily yield.</p>
                 </div>
                 <div className="roi-arrow">➔</div>
                 <div className="roi-phase-card highlight">
@@ -149,27 +148,27 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
             </div>
           )}
 
-          {/* SLIDE 5: MONOLINE NEXUS YIELD */}
+          {/* SLIDE 5: GLOBALINE NEXUS GRID */}
           {currentSlide === 5 && (
             <div className="slide-card">
-              <div className="slide-badge">STREAM 02</div>
-              <h2 className="slide-title">MONOLINE NEXUS YIELD (30%)</h2>
-              <p className="slide-desc">15 Active Uplines + 15 Active Downlines with Dynamic Compression:</p>
+              <div className="slide-badge">POOL 02</div>
+              <h2 className="slide-title">GLOBALINE NEXUS GRID (30%)</h2>
+              <p className="slide-desc">10 Active Uplines + 5 Active Downlines with Dynamic Compression (Package ke hisab se):</p>
               <div className="monoline-diagram glass-panel">
                 <div className="mono-row upline">
-                  <span className="mono-tag cyan">15 ACTIVE UPLINES (1% EACH = 15%)</span>
-                  <p>1% dividend from the 15 active members who joined before you on fresh activations and reinvestments.</p>
+                  <span className="mono-tag cyan">10 ACTIVE UPLINES (2% EACH = 20%)</span>
+                  <p>2% dividend from active members who joined before you on activations and auto-reinvestments (unlocked package ke hisab se up to 10 Up).</p>
                 </div>
                 <div className="mono-center-node gold-gradient-text">
                   ★ YOUR POSITION (CHRONOLOGICAL GLOBAL ID) ★
                 </div>
                 <div className="mono-row downline">
-                  <span className="mono-tag gold">15 ACTIVE DOWNLINES (1% EACH = 15%)</span>
-                  <p>1% dividend from the next 15 active members who join the global timeline anywhere in the world.</p>
+                  <span className="mono-tag gold">5 ACTIVE DOWNLINES (2% EACH = 10%)</span>
+                  <p>2% dividend from active members joining after you globally (unlocked package ke hisab se up to 5 Down).</p>
                 </div>
               </div>
               <div className="slide-callout-box glass-panel">
-                <strong>Dynamic Compression:</strong> Inactive or retired IDs are automatically skipped in real time so you only earn from active participants!
+                <strong>Package Scaling:</strong> $25 (2 Up/1 Down), $50 (4 Up/2 Down), $100 (6 Up/3 Down), $200 (8 Up/4 Down), $500+ (10 Up/5 Down Max) with Dynamic Compression skipping inactive IDs!
               </div>
             </div>
           )}
@@ -244,35 +243,8 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
             </div>
           )}
 
-          {/* SLIDE 8: LEADER RETENTION ENGINES */}
+          {/* SLIDE 8: 300% HARD-CAP & RE-BIRTH LOOP */}
           {currentSlide === 8 && (
-            <div className="slide-card">
-              <div className="slide-badge">RETENTION HOOKS</div>
-              <h2 className="slide-title">LEADER ENGINES & GROWTH HOOKS</h2>
-              <p className="slide-desc">Continuous team compounding mechanisms:</p>
-              <div className="growth-hooks-list">
-                <div className="hook-item glass-panel">
-                  <strong className="gold-gradient-text">Speed-Decay Engine:</strong>
-                  <p>If no direct is sponsored in 14 days, payout speed temporarily drops from 50% to 10%. 1 new direct instantly restores 100% speed.</p>
-                </div>
-                <div className="hook-item glass-panel">
-                  <strong className="cyan-gradient-text">Dynamic Infinity Override:</strong>
-                  <p>4–10 Directs: 5% Override | 11–25 Directs: 7% Override | 26+ Directs: 10% Master Royalty routed to Admin Master Wallet.</p>
-                </div>
-                <div className="hook-item glass-panel">
-                  <strong className="gold-gradient-text">Smart Re-Birth Queue Jump:</strong>
-                  <p>Leaders with 3+ directs in the last 30 days have their Re-Birth ID pushed into the VIP Fast-Track Slot instead of the bottom queue.</p>
-                </div>
-                <div className="hook-item glass-panel">
-                  <strong className="green-txt">30-Day Active Maintenance:</strong>
-                  <p>Maintain 1 active direct per 30 days to keep the optimal 70% Cash / 30% Reinvest ratio (otherwise 50/50).</p>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* SLIDE 9: 300% HARD-CAP & RE-BIRTH LOOP */}
-          {currentSlide === 9 && (
             <div className="slide-card">
               <div className="slide-badge">ZERO-LEAK SECURITY</div>
               <h2 className="slide-title">300% HARD-CAP & RE-BIRTH LOOP</h2>
@@ -296,11 +268,11 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
             </div>
           )}
 
-          {/* SLIDE 10: WITHDRAWAL & ADMIN SECRETS */}
-          {currentSlide === 10 && (
+          {/* SLIDE 9: WITHDRAWAL & REINVESTMENT MATRIX */}
+          {currentSlide === 9 && (
             <div className="slide-card">
               <div className="slide-badge">WITHDRAWAL MATRIX</div>
-              <h2 className="slide-title">WITHDRAWALS & MASTER WALLET</h2>
+              <h2 className="slide-title">WITHDRAWALS & REINVESTMENT MATRIX</h2>
               <p className="slide-desc">Rigid mathematical parameters ensuring eternal liquidity:</p>
               <div className="withdrawal-grid glass-panel">
                 <div className="w-box">
@@ -315,7 +287,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
                 </div>
               </div>
               <div className="slide-callout-box glass-panel gold">
-                <strong>Admin Master Profit:</strong> Genesis Triangle captures all unclaimed spillovers. 4th+ direct infinity override channels 5%–10% master royalties directly to the Admin Master Wallet!
+                <strong>Protocol Security:</strong> 100% automated on-chain execution with zero counterparty risk. P2P instant split protocol deployed on BNB Chain.
               </div>
               <div className="final-slide-btn-wrap">
                 <button className="launch-app-btn" onClick={onLaunchApp}>

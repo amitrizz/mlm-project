@@ -21,16 +21,36 @@ export const GENESIS_ADMIN_TRIANGLE = [
 
 // Sequential Packages ($25 to $6,400)
 export const PROTOCOL_PACKAGES = [
-  { val: 25, label: "$25 STARTER", tier: "Tier 1", roiCap: 50, hardCap3X: 75, monolineReach: "10 Up + 5 Down", maxDepth: 10 },
-  { val: 50, label: "$50 RUNNER", tier: "Tier 2", roiCap: 100, hardCap3X: 150, monolineReach: "10 Up + 5 Down", maxDepth: 15 },
-  { val: 100, label: "$100 PRO", tier: "Tier 3", roiCap: 200, hardCap3X: 300, monolineReach: "10 Up + 5 Down", maxDepth: 20 },
-  { val: 200, label: "$200 ELITE", tier: "Tier 4", roiCap: 400, hardCap3X: 600, monolineReach: "10 Up + 5 Down", maxDepth: 25 },
+  { val: 25, label: "$25 STARTER", tier: "Tier 1", roiCap: 50, hardCap3X: 75, monolineReach: "2 Up + 1 Down", maxDepth: 10 },
+  { val: 50, label: "$50 RUNNER", tier: "Tier 2", roiCap: 100, hardCap3X: 150, monolineReach: "4 Up + 2 Down", maxDepth: 15 },
+  { val: 100, label: "$100 PRO", tier: "Tier 3", roiCap: 200, hardCap3X: 300, monolineReach: "6 Up + 3 Down", maxDepth: 20 },
+  { val: 200, label: "$200 ELITE", tier: "Tier 4", roiCap: 400, hardCap3X: 600, monolineReach: "8 Up + 4 Down", maxDepth: 25 },
   { val: 500, label: "$500 MASTER", tier: "Tier 5", roiCap: 1000, hardCap3X: 1500, monolineReach: "10 Up + 5 Down", maxDepth: 30 },
   { val: 1000, label: "$1,000 TITAN VIP", tier: "Tier 6", roiCap: 2000, hardCap3X: 3000, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
   { val: 2000, label: "$2,000 ROYAL", tier: "Tier 7", roiCap: 4000, hardCap3X: 6000, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
   { val: 3200, label: "$3,200 IMPERIAL", tier: "Tier 8", roiCap: 6400, hardCap3X: 9600, monolineReach: "10 Up + 5 Down", maxDepth: 40 },
   { val: 6400, label: "$6,400 EMPEROR", tier: "Tier 9", roiCap: 12800, hardCap3X: 19200, monolineReach: "10 Up + 5 Down", maxDepth: 40 }
 ];
+
+// Package-Wise Globaline Reach Tiers (Package ke hisab se)
+export const GLOBALINE_PACKAGE_TIERS = [
+  { pkg: 25, label: "$25 Package", up: 2, down: 1, total: 3, reach: "2 Up + 1 Down" },
+  { pkg: 50, label: "$50 Package", up: 4, down: 2, total: 6, reach: "4 Up + 2 Down" },
+  { pkg: 100, label: "$100 Package", up: 6, down: 3, total: 9, reach: "6 Up + 3 Down" },
+  { pkg: 200, label: "$200 Package", up: 8, down: 4, total: 12, reach: "8 Up + 4 Down" },
+  { pkg: 500, label: "$500 Package", up: 10, down: 5, total: 15, reach: "10 Up + 5 Down" },
+  { pkg: 1000, label: "$1,000 to $6,400", up: 10, down: 5, total: 15, reach: "10 Up + 5 Down (Max)" }
+];
+
+export const getGlobalineReach = (pkgUSD) => {
+  const pkg = Number(pkgUSD || 0);
+  if (pkg < 25) return { up: 0, down: 0, total: 0, reach: "0 Up + 0 Down (Inactive)" };
+  if (pkg < 50) return { up: 2, down: 1, total: 3, reach: "2 Up + 1 Down" };
+  if (pkg < 100) return { up: 4, down: 2, total: 6, reach: "4 Up + 2 Down" };
+  if (pkg < 200) return { up: 6, down: 3, total: 9, reach: "6 Up + 3 Down" };
+  if (pkg < 500) return { up: 8, down: 4, total: 12, reach: "8 Up + 4 Down" };
+  return { up: 10, down: 5, total: 15, reach: "10 Up + 5 Down" };
+};
 
 // Package Depth Matrix Table
 export const PACKAGE_DEPTH_MATRIX = [
@@ -95,7 +115,7 @@ export const COMMUNITY_POOLS = [
   },
   {
     id: "fomo",
-    name: "Apocalypse Jackpot Vault",
+    name: "Jackpot Reward",
     splitPct: 5,
     description: "24-hour countdown pool. 70% shared among the last 50 paid users and 30% split among top 3 direct sponsors.",
     countdownHours: 24,
@@ -144,7 +164,7 @@ export const ROYAL_RANKS = [
     crown: "👑",
     crownColor: "#ffd700",
     glowClass: "emperor-glow",
-    perk: "10% Master Royalty + Permanent Royal Hall of Fame"
+    perk: "Royal Crown Honors + Permanent Royal Hall of Fame"
   },
   {
     rank: 2,
@@ -153,7 +173,7 @@ export const ROYAL_RANKS = [
     crown: "🥈",
     crownColor: "#e0e7ff",
     glowClass: "prince-glow",
-    perk: "7% Infinity Override + Priority VIP Fast-Track"
+    perk: "VIP Fast-Track Priority + Sovereign Badge"
   },
   {
     rank: 3,
@@ -162,7 +182,7 @@ export const ROYAL_RANKS = [
     crown: "🥉",
     crownColor: "#f59e0b",
     glowClass: "duke-glow",
-    perk: "5% Infinity Override + Daily Jackpot Dividend"
+    perk: "Daily Jackpot Share + Grand Duke Crest"
   },
   {
     rank: 4,

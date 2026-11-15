@@ -24,11 +24,11 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
     },
     {
       q: "How does the Live Split work across the 5 Elite Pools?",
-      a: "Every package activation ($25 to $6,400) splits instantly on-chain: 30% to Quantum Genesis ROI, 30% to Globaline Nexus Grid (10 Up + 5 Down active wallets), 25% to Velocity Matrix Bonus (up to 40 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H Apocalypse Jackpot Vault."
+      a: "Every package activation ($25 to $6,400) splits instantly on-chain: 30% to Quantum Genesis ROI, 30% to Globaline Nexus Grid (10 Up + 5 Down active wallets), 25% to Velocity Matrix Bonus (up to 40 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H Jackpot Reward Pool."
     },
     {
       q: "How does the Quantum Genesis ROI operate?",
-      a: "It is a global passive pool with a 2X (200%) cap. You earn 3% daily for the first 10 days, followed by 1% daily. Sponsoring 1 new direct referral immediately resets the 3% daily rate for another 10 days! ROI withdrawals are always unlocked with a 40% cash / 60% auto-reinvestment compounding ratio."
+      a: "It is a global passive pool. You earn 3% daily for the first 10 days, followed by 1% daily. Sponsoring 1 new direct referral immediately resets the 3% daily rate for another 10 days! ROI withdrawals are always unlocked with a 40% cash / 60% auto-reinvestment compounding ratio."
     },
     {
       q: "What is the Globaline Nexus Grid (30% Pool) with Dynamic Compression?",
@@ -110,12 +110,6 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
             <h3>100% P2P Instant Split</h3>
             <p>Zero funds retained in the contract core ledger. All incoming package capital splits live into 5 automated pools.</p>
           </div>
-
-          <div className="onboard-step-card glass-panel">
-            <span className="step-number gold-gradient-text">04</span>
-            <h3>Genesis Admin Triangle</h3>
-            <p>Top 3 fixed IDs (Admin Triangle Chain) are hardcoded at Genesis to capture working spillovers and unclaimed breakage.</p>
-          </div>
         </div>
       </section>
 
@@ -135,7 +129,6 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
                 <span className="p-price gold-gradient-text">${pkg.val} USDT</span>
               </div>
               <strong className="p-levels">{pkg.monolineReach} Active Wallets</strong>
-              <small className="p-perks">2X ROI Cap: ${pkg.roiCap} | 3X Hard-Cap: ${pkg.hardCap3X} USDT</small>
             </div>
           ))}
         </div>
@@ -156,9 +149,9 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
               <div className="sdb-badge">POOL 01</div>
               <span className="sdb-share cyan-gradient-text">30% POOL</span>
             </div>
-            <h3>Time-Bomb Quantum ROI (Global Passive)</h3>
+            <h3>Quantum Genesis ROI (Global Passive)</h3>
             <p>
-              Global passive yield pool with a <strong>2X (200%) Cap</strong>. Earn <strong>3% daily for the first 10 days</strong>, 
+              Global passive yield pool. Earn <strong>3% daily for the first 10 days</strong>, 
               then <strong>1% daily</strong> thereafter. Sponsoring 1 new direct referral resets your yield back to 3% for another 10 days!
             </p>
             <div className="sdb-highlight glass-panel">
@@ -172,13 +165,12 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
               <div className="sdb-badge gold">POOL 02</div>
               <span className="sdb-share gold-gradient-text">30% POOL</span>
             </div>
-            <h3>Monoline Nexus Yield (Global Single Leg)</h3>
+            <h3>Globaline Nexus Grid (Advanced Global Queue)</h3>
             <p>
-              Chronological single leg monoline. You earn <strong>1% from each of the 15 active wallets above you</strong> and 
-              <strong>1% from each of the 15 active wallets below you</strong> (total 30%).
+              Advanced global queue. Earn combined 30% yield from your <strong>10 Active Uplines and 5 Active Downlines</strong> (unlocked package ke hisab se with Dynamic Compression).
             </p>
             <div className="sdb-formula">
-              Dynamic Compression: Non-active or retired IDs are bypassed in real time so you always receive yields from 30 active wallets!
+              Dynamic Compression: Non-active or retired IDs are bypassed in real time so you only receive yields from active wallets!
             </div>
           </div>
 
@@ -188,26 +180,22 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
               <div className="sdb-badge">POOL 03</div>
               <span className="sdb-share cyan-gradient-text">25% POOL</span>
             </div>
-            <h3>Velocity Multi-Tier Bonus (9-Level Generation)</h3>
+            <h3>Velocity Matrix Bonus (Up to 40 Levels Deep)</h3>
             <p>
-              Unilevel generation rewards with a generous <strong>13% fixed direct bonus on Level 1</strong>:
+              Package-wise deep generation unilevel rewards with fixed <strong>13% direct bonus on Level 1</strong>, unlocking up to 40 levels based on your active package tier:
             </p>
             <div className="unilevel-tiers-strip">
               <span className="ut-pill gold">L1: 13%</span>
               <span className="ut-pill">L2: 3%</span>
               <span className="ut-pill">L3: 2%</span>
-              <span className="ut-pill">L4: 1%</span>
-              <span className="ut-pill">L5: 1%</span>
-              <span className="ut-pill">L6: 1%</span>
-              <span className="ut-pill">L7: 1%</span>
-              <span className="ut-pill">L8: 1%</span>
-              <span className="ut-pill">L9: 1%</span>
+              <span className="ut-pill">L4–L6: 1% each</span>
+              <span className="ut-pill">L7–L40: 1% each</span>
             </div>
             <div className="sdb-unlock-info">
               <span><strong>0 Directs:</strong> Unlocks Level 1 (13%)</span> · 
               <span><strong>1 Direct:</strong> Unlocks Levels 2–3 (18% Total)</span> · 
               <span><strong>2 Directs:</strong> Unlocks Levels 4–6 (21% Total)</span> · 
-              <span><strong>3 Directs:</strong> Unlocks Levels 7–9 (25% Total)</span>
+              <span><strong>3 Directs:</strong> Unlocks Levels 7–40 (25% Total)</span>
             </div>
           </div>
 
@@ -230,7 +218,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
               <div className="sdb-badge">POOL 05</div>
               <span className="sdb-share cyan-gradient-text">5% POOL</span>
             </div>
-            <h3>FOMO Apocalypse Jackpot (24H Countdown)</h3>
+            <h3>Jackpot Reward (24H Countdown)</h3>
             <p>
               Automated 24-hour countdown pool. <strong>70% is shared equally among the last 50 paid users</strong>, and 
               <strong>30% is split among the top 3 direct sponsors</strong> of that round!
@@ -239,60 +227,12 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
         </div>
       </section>
 
-      {/* Leader Growth Hooks & Safeguards */}
-      <section className="xfactor-manual-section glass-panel">
-        <div className="manual-sec-header">
-          <span className="sec-pill gold">Growth Engines</span>
-          <h2>Leader Retention & Anti-Dumping Safeguards</h2>
-          <p>Mechanisms engineered to guarantee compounding activity and system longevity:</p>
-        </div>
-
-        <div className="table-responsive desktop-only-table">
-          <table className="altruva-table manual-tbl">
-            <thead>
-              <tr>
-                <th>ENGINE / MECHANISM</th>
-                <th>CONDITION & TRIGGER</th>
-                <th>EFFECT & REWARD IMPACT</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Speed-Decay Engine</strong></td>
-                <td>No new direct sponsor within 14 days</td>
-                <td className="cyan-txt">Withdrawal speed drops from 50% to 10%. Resets to 100% on 1 new direct.</td>
-              </tr>
-              <tr className="unlocked-row">
-                <td><strong>Dynamic Infinity Override</strong></td>
-                <td>4–10 Directs: 5% | 11–25: 7% | 26+: 10%</td>
-                <td className="gold-gradient-text">Master Royalty captured by Admin Master Wallet across all lifetime volume.</td>
-              </tr>
-              <tr>
-                <td><strong>Smart Re-Birth Queue Jump</strong></td>
-                <td>3+ Directs sponsored in last 30 days</td>
-                <td className="green-txt">Re-Birth ID pushed into VIP Fast-Track Slot instead of normal bottom queue.</td>
-              </tr>
-              <tr>
-                <td><strong>30-Day Active Maintenance</strong></td>
-                <td>Maintain 1 active direct or team volume per 30d</td>
-                <td>Keeps 70% Cash / 30% Reinvest ratio; drops to 50/50 if maintenance window lapses.</td>
-              </tr>
-              <tr className="unlocked-row">
-                <td><strong>300% (3X) Hard-Cap & Re-Birth</strong></td>
-                <td>Cumulative income reaches 300% of active package</td>
-                <td>Old ID freezes/retires. Package amount auto-deducted to spawn new active Re-Birth ID.</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
       {/* FAQ Accordion */}
       <section className="faq-section glass-panel">
         <div className="manual-sec-header">
           <span className="sec-pill">FAQ</span>
           <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about Altruva Protocol v3.3:</p>
+          <p>Everything you need to know about Omni-Nexus Protocol v4.4:</p>
         </div>
 
         <div className="faq-accordion-list">

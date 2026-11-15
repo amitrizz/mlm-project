@@ -9,8 +9,11 @@ export default function FaucetModal({
   address,
   usdtBalance = '0.00',
   loading = false,
+  chainId,
 }) {
-  if (!isOpen) return null;
+  // Free USDT is strictly for testing on BNB Testnet (Chain ID 97)
+  // When switched to BNB Mainnet (Chain ID 56), this popup and distribution NEVER happens!
+  if (!isOpen || chainId !== 97) return null;
 
   return (
     <div className="withdraw-modal-overlay" onClick={onClose}>

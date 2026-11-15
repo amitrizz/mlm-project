@@ -192,14 +192,19 @@ export default function App() {
       setActiveTab('dashboard');
       loadBlockchainData();
 
-      // Check if this connected wallet hasn't claimed 100 free USDT yet
-      try {
-        const key = `altruva_faucet_claimed_${address.toLowerCase()}`;
-        const hasClaimed = localStorage.getItem(key);
-        if (!hasClaimed) {
-          setIsFaucetModalOpen(true);
-        }
-      } catch (e) {}
+      // Free 100 USDT is strictly for testing on BNB Testnet (chainId === 97)
+      // When on BNB Mainnet (chainId === 56) or others, NEVER trigger free USDT distribution/popup
+      if (chainId === 97) {
+        try {
+          const key = `altruva_faucet_claimed_${address.toLowerCase()}`;
+          const hasClaimed = localStorage.getItem(key);
+          if (!hasClaimed) {
+            setIsFaucetModalOpen(true);
+          }
+        } catch (e) {}
+      } else {
+        setIsFaucetModalOpen(false);
+      }
     } else {
       setActiveTab('manual');
       setUserData(null);
@@ -328,19 +333,21 @@ export default function App() {
     }
   };
 
-  // 100 Free Testnet USDT Faucet Handler on BNB Smart Chain Testnet
+  // 100 Free Testnet USDT Faucet Handler on BNB Smart Chain Testnet ONLY
   const handleClaimFreeUSDT = async (targetAddr) => {
     if (!isConnected || !address) {
       showToast('Please connect your Web3 wallet first.');
       return;
     }
+    // Strictly disable on BNB Mainnet (Chain ID 56) or non-testnet
+    if (chainId !== 97) {
+      setIsFaucetModalOpen(false);
+      showToast('Free USDT test faucet is strictly available on BNB Testnet only.');
+      return;
+    }
     const recipient = targetAddr || address;
     setFaucetLoading(true);
     try {
-      if (chainId !== 97) {
-        showToast('Switching to BNB Smart Chain Testnet (Chain ID 97)...');
-        await handleSwitchToBscTestnet();
-      }
 
       const signer = await getEthersSigner();
       if (!addresses.usdt) {
@@ -556,7 +563,7 @@ export default function App() {
                   className={`nav-tab ${activeTab === 'leadership' ? 'active' : ''}`}
                   onClick={() => setActiveTab('leadership')}
                 >
-                  <Flame size={15} /> FOMO & Cashback (15%)
+                  <Flame size={15} /> Cashback Reward (15%)
                 </button>
                 <button 
                   className={`nav-tab ${activeTab === 'manual' ? 'active' : ''}`}
@@ -581,15 +588,15 @@ export default function App() {
               <BookOpen size={15} className="gold" /> Master Presentation
             </button>
 
-            {isConnected && (
+            {isConnected && chainId === 97 && (
               <button 
                 className="claim-faucet-nav-btn desktop-only"
-                onClick={() => handleClaimFreeUSDT()}
+                onClick={() => setIsFaucetModalOpen(true)}
                 disabled={faucetLoading}
-                title="Claim 100 Free USDT on BNB Testnet"
+                title="BNB Testnet Only: 100 Test USDT Faucet"
               >
                 <Gift size={14} className="gold" /> 
-                {faucetLoading ? 'Minting...' : '100 Free USDT'}
+                {faucetLoading ? 'Minting...' : 'Testnet Faucet'}
               </button>
             )}
 
@@ -642,7 +649,7 @@ export default function App() {
                   ⚡ Velocity Matrix (40 Levels)
                 </button>
                 <button onClick={() => { setActiveTab('leadership'); setMobileMenuOpen(false); }}>
-                  🔥 FOMO Apocalypse & Cashback (15%)
+                  🎁 Cashback Reward (15%)
                 </button>
                 <button onClick={() => { setActiveTab('manual'); setMobileMenuOpen(false); }}>
                   📖 Protocol Blueprint
@@ -835,6 +842,7 @@ export default function App() {
         address={address}
         usdtBalance={usdtBalance}
         loading={faucetLoading}
+        chainId={chainId}
       />
 
       <WithdrawModal

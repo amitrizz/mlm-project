@@ -5,7 +5,7 @@ import {
   Clock, AlertTriangle, Flame, Zap, Lock, Unlock, PlayCircle 
 } from 'lucide-react';
 import AltruvaLogo from './AltruvaLogo';
-import { PROTOCOL_PACKAGES, LEADER_MECHANISMS, WITHDRAWAL_RULES } from '../planConfig';
+import { PROTOCOL_PACKAGES, LEADER_MECHANISMS, WITHDRAWAL_RULES, getGlobalineReach } from '../planConfig';
 
 export default function Dashboard({
   address,
@@ -241,8 +241,8 @@ export default function Dashboard({
             <span className="stat-cur">USDT</span>
           </div>
           <div className="stat-sub-info">
-            <span>Globaline Reach: <strong>10 UP + 5 DOWN (30%)</strong></span>
-            <small>Dynamic Compression Active (Skips Inactive IDs)</small>
+            <span>Globaline Reach: <strong>{getGlobalineReach(activePkg).reach} (30%)</strong></span>
+            <small>{activePkg > 0 ? `${getGlobalineReach(activePkg).total} Wallets Active Yielding` : 'Activate Package to Unlock'}</small>
           </div>
         </div>
 
@@ -293,7 +293,7 @@ export default function Dashboard({
       <div className="cashback-mission-card glass-panel">
         <div className="cm-left">
           <div className="cm-badge-row">
-            <span className="cm-badge gold"><Gift size={14} /> 72H ALPHA CASHBACK SURGE</span>
+            <span className="cm-badge gold"><Gift size={14} /> 72H ALPHA CASHBACK REWARD</span>
             <span className="cm-pill cyan-gradient-text">100% JOINING FEE REFUND MISSION</span>
           </div>
           <h3>Sponsor 3 Direct Active Members within 72 Hours</h3>
@@ -333,42 +333,8 @@ export default function Dashboard({
             <div className="wallet-bal-pill">
               <span>Wallet USDT:</span> <strong>${Number(usdtBalance || 0).toFixed(2)}</strong>
             </div>
-            {onClaimFaucet && (
-              <button 
-                type="button"
-                className="faucet-pill-btn" 
-                onClick={onClaimFaucet}
-                disabled={faucetLoading}
-                title="Claim 100 Free Testnet USDT on BNB Smart Chain"
-              >
-                <Gift size={13} /> {faucetLoading ? 'Claiming...' : '+100 USDT Free'}
-              </button>
-            )}
           </div>
         </div>
-
-        {/* 100 USDT Free Welcome Faucet Banner (Visible if wallet balance < 100) */}
-        {Number(usdtBalance || 0) < 100 && onClaimFaucet && (
-          <div className="faucet-banner glass-panel">
-            <div className="fb-left">
-              <div className="fb-icon-box">
-                <Gift size={22} className="pulse" />
-              </div>
-              <div className="fb-text">
-                <h4>🎁 Claim 100 Free USDT (BEP-20) on BNB Testnet</h4>
-                <p>New to Altruva? Get 100 Free Testnet USDT instantly deposited to test Tier 1 ($25), Tier 2 ($50), or Tier 3 ($100) packages!</p>
-              </div>
-            </div>
-            <button 
-              type="button"
-              className="fb-btn"
-              onClick={onClaimFaucet}
-              disabled={faucetLoading}
-            >
-              <Sparkles size={16} /> {faucetLoading ? 'Minting 100 USDT...' : 'Claim 100 Free USDT'}
-            </button>
-          </div>
-        )}
 
         {/* 6 Preset Packages */}
         <div className="preset-pkgs-grid">
@@ -383,7 +349,6 @@ export default function Dashboard({
                 <span className="p-price gold-gradient-text">${pkg.val} USDT</span>
               </div>
               <strong className="p-levels">{pkg.monolineReach} · {pkg.maxDepth} Levels Depth</strong>
-              <small className="p-perks">2X ROI: ${pkg.roiCap} | 3X Cap: ${pkg.hardCap3X}</small>
             </div>
           ))}
         </div>

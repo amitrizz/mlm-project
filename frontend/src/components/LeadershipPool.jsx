@@ -44,8 +44,8 @@ export default function LeadershipPool({
         <div className="sh-top">
           <div className="sh-title-box">
             <span className="sh-pill gold-gradient-text">POOLS 04 & 05 (15% TOTAL LIVE SPLIT)</span>
-            <h2>FOMO APOCALYPSE & CASHBACK SURGE</h2>
-            <p>24-Hour Automated Countdown Jackpot (5%) & 72-Hour Direct Mission Refund (10%).</p>
+            <h2>CASHBACK REWARD</h2>
+            <p>72-Hour Direct Mission Refund (10%) & 24-Hour Automated Countdown Jackpot (5%).</p>
           </div>
           <div className="sh-stats-box">
             <div className="stat-mini">
@@ -80,7 +80,7 @@ export default function LeadershipPool({
           <div className="rc-header">
             <div className="rc-badge-title">
               <span className="rank-roman">POOL 05</span>
-              <h3>FOMO APOCALYPSE JACKPOT</h3>
+              <h3>JACKPOT REWARD</h3>
             </div>
             <div className="pool-pct-pill gold-gradient-text">5% COUNTDOWN POOL</div>
           </div>
@@ -115,7 +115,7 @@ export default function LeadershipPool({
           <div className="rc-header">
             <div className="rc-badge-title">
               <span className="rank-roman">POOL 04</span>
-              <h3>72H ALPHA CASHBACK SURGE</h3>
+              <h3>72H ALPHA CASHBACK REWARD</h3>
             </div>
             <div className="pool-pct-pill cyan-gradient-text">10% SURGE POOL</div>
           </div>

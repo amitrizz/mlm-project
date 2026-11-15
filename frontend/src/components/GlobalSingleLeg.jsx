@@ -4,6 +4,7 @@ import {
   ExternalLink, Copy, Check, Sparkles, Layers, ArrowRight, Clock, Award, Zap 
 } from 'lucide-react';
 import AltruvaLogo from './AltruvaLogo';
+import { getGlobalineReach, GLOBALINE_PACKAGE_TIERS } from '../planConfig';
 
 export default function GlobalSingleLeg({ 
   address,
@@ -21,7 +22,10 @@ export default function GlobalSingleLeg({
 
   const isRegistered = Boolean(userData && userData.registered);
   const userIndex = isRegistered ? Number(userData.globalIndex) : 1;
-  const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 100);
+  const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 0);
+
+  // Dynamic Reach based on active package (Package ke hisab se)
+  const userReach = getGlobalineReach(isRegistered ? activePkg : 0);
 
   const copyToClipboard = (text, key) => {
     navigator.clipboard.writeText(text);
@@ -34,9 +38,10 @@ export default function GlobalSingleLeg({
   const uplineList = [];
   for (let lvl = 1; lvl <= 10; lvl++) {
     const targetIdx = userIndex - lvl;
+    const isUnlocked = isRegistered && (lvl <= userReach.up);
     if (targetIdx >= 1) {
       const onChain = onChainUsers.find(u => u.index === targetIdx);
-      const pkg = activePkg || 100;
+      const pkg = activePkg || 50;
       const earned = (pkg * 0.02).toFixed(2);
       const addr = onChain ? onChain.address : `0x${((targetIdx * 7919) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 6271) % 0xffff).toString(16).padStart(4, '0')}`;
       uplineList.push({
@@ -44,16 +49,16 @@ export default function GlobalSingleLeg({
         globalIndex: targetIdx,
         address: addr,
         packageUSD: pkg,
-        earnedUSD: earned,
+        earnedUSD: isUnlocked ? earned : '0.00',
         isActive: true,
-        isUnlocked: true
+        isUnlocked
       });
     } else {
       uplineList.push({
         level: lvl,
         globalIndex: null,
         isActive: false,
-        isUnlocked: true
+        isUnlocked
       });
     }
   }
@@ -63,6 +68,7 @@ export default function GlobalSingleLeg({
   for (let lvl = 1; lvl <= 5; lvl++) {
     const targetIdx = userIndex + lvl;
     const isOccupied = totalUsers > 0 ? (targetIdx <= totalUsers) : (lvl <= 5);
+    const isUnlocked = isRegistered && (lvl <= userReach.down);
     const onChain = onChainUsers.find(u => u.index === targetIdx);
     const pkg = activePkg || 50;
     const earned = (pkg * 0.02).toFixed(2);
@@ -75,9 +81,9 @@ export default function GlobalSingleLeg({
       globalIndex: targetIdx,
       address: addr,
       packageUSD: isOccupied ? pkg : 0,
-      earnedUSD: isOccupied ? earned : '0.00',
+      earnedUSD: isOccupied && isUnlocked ? earned : '0.00',
       isActive: isOccupied,
-      isUnlocked: true
+      isUnlocked
     });
   }
 
@@ -89,11 +95,17 @@ export default function GlobalSingleLeg({
           <div className="sh-title-box">
             <span className="sh-pill gold-gradient-text">POOL 02 (30% LIVE P2P SPLIT)</span>
             <h2>GLOBALINE NEXUS GRID</h2>
-            <p>10 Active Uplines + 5 Active Downlines (Total 15 Wallets @ 2% each = 30% Yield with Dynamic Compression).</p>
+            <p>10 Active Uplines + 5 Active Downlines with Dynamic Compression. Reach unlocks package ke hisab se ($25 = 2 Up/1 Down up to $500+ = 10 Up/5 Down).</p>
           </div>
           <div className="sh-stats-box">
             <div className="stat-mini">
-              <span>Globaline Active Depth:</span>
+              <span>Your Package Reach:</span>
+              <strong className="gold-gradient-text">
+                {isRegistered ? `${userReach.reach} (${userReach.total} Wallets)` : 'Inactive (Activate Package)'}
+              </strong>
+            </div>
+            <div className="stat-mini">
+              <span>Globaline Max Depth:</span>
               <strong className="cyan-gradient-text">10 UP + 5 DOWN (15 WALLETS)</strong>
             </div>
             <div className="stat-mini">
@@ -103,16 +115,39 @@ export default function GlobalSingleLeg({
           </div>
         </div>
 
+        {/* Package-Wise Globaline Reach Grid (Package ke hisab se) */}
+        <div className="package-depth-card glass-panel" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+          <div className="pdc-header">
+            <h4>📦 Package-Wise Globaline Reach Matrix (Package ke hisab se)</h4>
+            <small>Higher packages automatically unlock more active Uplines and Downlines:</small>
+          </div>
+          <div className="pdc-grid">
+            {GLOBALINE_PACKAGE_TIERS.map((tier, idx) => {
+              const isQualified = isRegistered && (activePkg >= tier.pkg);
+              return (
+                <div 
+                  key={idx} 
+                  className={`pdc-tier-chip glass-panel ${isQualified ? 'qualified' : ''}`}
+                >
+                  <span className="pdc-pkg-name">{tier.label}</span>
+                  <strong className="pdc-depth-val gold-gradient-text">{tier.reach}</strong>
+                  {isQualified && <span className="pdc-active-check">✓ Active</span>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Compression Explainer Strip */}
         <div className="daily-rules-strip glass-panel">
           <div className="rule-badge-col">
             <span className="r-tag">10 ACTIVE UPLINES (20%)</span>
-            <p>Earn 2% dividend on package activations and every auto-reinvestment from 10 members above you.</p>
+            <p>Earn 2% dividend on package activations and every auto-reinvestment from active members above you.</p>
           </div>
           <div className="rule-sep">+</div>
           <div className="rule-badge-col">
             <span className="r-tag gold">5 ACTIVE DOWNLINES (10%)</span>
-            <p>Earn 2% dividend on package activations and every auto-reinvestment from 5 members below you.</p>
+            <p>Earn 2% dividend on package activations and every auto-reinvestment from active members below you.</p>
           </div>
         </div>
       </div>
@@ -123,19 +158,19 @@ export default function GlobalSingleLeg({
           className={`subtab-btn ${activeSubView === 'monoline' ? 'active' : ''}`}
           onClick={() => setActiveSubView('monoline')}
         >
-          <Zap size={16} /> Complete 15-Wallet Active Globaline
+          <Zap size={16} /> Complete Active Globaline ({userReach.total} Wallets Qualified)
         </button>
         <button 
           className={`subtab-btn ${activeSubView === 'uplines' ? 'active' : ''}`}
           onClick={() => setActiveSubView('uplines')}
         >
-          <ArrowUp size={16} /> 10 Active Uplines (20%)
+          <ArrowUp size={16} /> Active Uplines ({userReach.up} / 10 Unlocked)
         </button>
         <button 
           className={`subtab-btn ${activeSubView === 'downlines' ? 'active' : ''}`}
           onClick={() => setActiveSubView('downlines')}
         >
-          <ArrowDown size={16} /> 5 Active Downlines (10%)
+          <ArrowDown size={16} /> Active Downlines ({userReach.down} / 5 Unlocked)
         </button>
       </div>
 
@@ -146,7 +181,7 @@ export default function GlobalSingleLeg({
           <div className="stream-section">
             <div className="section-title-strip cyan-bg">
               <ArrowUp size={16} />
-              <span>15 ACTIVE UPLINE WALLETS (1% EACH ➔ 15% MONOLINE YIELD)</span>
+              <span>10 ACTIVE UPLINE WALLETS (2% EACH ➔ 20% YIELD) · {userReach.up}/10 QUALIFIED</span>
             </div>
             <div className="table-responsive">
               <table className="altruva-table">
@@ -156,13 +191,13 @@ export default function GlobalSingleLeg({
                     <th>GLOBAL MONOLINE ID</th>
                     <th>WALLET ADDRESS</th>
                     <th>ACTIVE PACKAGE</th>
-                    <th>YOUR 1% DIVIDEND</th>
+                    <th>YOUR 2% DIVIDEND</th>
                     <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
                   {uplineList.map(item => (
-                    <tr key={item.level} className="unlocked-row">
+                    <tr key={item.level} className={item.isUnlocked ? "unlocked-row" : "locked-row"}>
                       <td><span className="lvl-badge upline-badge">▲ Level -{item.level}</span></td>
                       <td><strong>#{item.globalIndex || 'GENESIS'}</strong></td>
                       <td>
@@ -171,8 +206,14 @@ export default function GlobalSingleLeg({
                         </span>
                       </td>
                       <td><strong className="gold-gradient-text">${item.packageUSD} USDT</strong></td>
-                      <td><strong className="green-txt">+${item.earnedUSD} USDT</strong></td>
-                      <td><span className="status-pill active">● Active Yielding</span></td>
+                      <td><strong className="green-txt">+{item.earnedUSD} USDT</strong></td>
+                      <td>
+                        {item.isUnlocked ? (
+                          <span className="status-pill active">● Active Yielding (2%)</span>
+                        ) : (
+                          <span className="status-pill locked"><Lock size={12} /> Locked (Upgrade Package)</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -195,6 +236,7 @@ export default function GlobalSingleLeg({
             <div className="uca-right">
               <span className="uca-pkg-lbl">Active Package:</span>
               <strong className="uca-pkg gold-gradient-text">${activePkg} USDT</strong>
+              <small className="green-txt">Qualified Reach: {userReach.reach}</small>
             </div>
           </div>
         )}
@@ -204,7 +246,7 @@ export default function GlobalSingleLeg({
           <div className="stream-section">
             <div className="section-title-strip gold-bg">
               <ArrowDown size={16} />
-              <span>15 ACTIVE DOWNLINE WALLETS (1% EACH ➔ 15% MONOLINE YIELD)</span>
+              <span>5 ACTIVE DOWNLINE WALLETS (2% EACH ➔ 10% YIELD) · {userReach.down}/5 QUALIFIED</span>
             </div>
             <div className="table-responsive">
               <table className="altruva-table">
@@ -214,13 +256,13 @@ export default function GlobalSingleLeg({
                     <th>GLOBAL MONOLINE ID</th>
                     <th>WALLET ADDRESS</th>
                     <th>ACTIVE PACKAGE</th>
-                    <th>YOUR 1% DIVIDEND</th>
+                    <th>YOUR 2% DIVIDEND</th>
                     <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
                   {downlineList.map(item => (
-                    <tr key={item.level} className="unlocked-row">
+                    <tr key={item.level} className={item.isUnlocked ? "unlocked-row" : "locked-row"}>
                       <td><span className="lvl-badge downline-badge">▼ Level +{item.level}</span></td>
                       <td><strong>#{item.globalIndex}</strong></td>
                       <td>
@@ -229,8 +271,14 @@ export default function GlobalSingleLeg({
                         </span>
                       </td>
                       <td><strong className="gold-gradient-text">${item.packageUSD} USDT</strong></td>
-                      <td><strong className="green-txt">+${item.earnedUSD} USDT</strong></td>
-                      <td><span className="status-pill active">● Active Yielding</span></td>
+                      <td><strong className="green-txt">+{item.earnedUSD} USDT</strong></td>
+                      <td>
+                        {item.isUnlocked ? (
+                          <span className="status-pill active">● Active Yielding (2%)</span>
+                        ) : (
+                          <span className="status-pill locked"><Lock size={12} /> Locked (Upgrade Package)</span>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
