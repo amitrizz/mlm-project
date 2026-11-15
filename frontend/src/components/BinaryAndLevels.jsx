@@ -94,7 +94,7 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
           <div className="daily-rules-strip glass-panel">
             <div className="rule-badge-col">
               <span className="r-tag gold">0 DIRECTS</span>
-              <p>Level 1 (13%) is unlocked immediately for ROI withdrawal.</p>
+              <p>Level 1 (13%) is unlocked immediately for Reward withdrawal.</p>
             </div>
             <div className="rule-sep">+</div>
             <div className="rule-badge-col">
