@@ -45,8 +45,8 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
               <div className="cover-logo-center">
                 <AltruvaLogo size={110} />
               </div>
-              <h1 className="cover-title">ALTRUVA</h1>
-              <div className="cover-tagline gold-gradient-text">PROTOCOL v3.3 (10X VIRAL EDITION)</div>
+              <h1 className="cover-title">OMNI-NEXUS</h1>
+              <div className="cover-tagline gold-gradient-text">PROTOCOL v4.4 (THE ROYAL VIP EDITION)</div>
               <div className="cover-subtags">
                 <span>100% P2P Instant Split</span>
                 <span className="dot">•</span>
@@ -64,7 +64,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
           {currentSlide === 2 && (
             <div className="slide-card">
               <div className="slide-badge">INFRASTRUCTURE & TIERS</div>
-              <h2 className="slide-title">THE 6 STANDARD PACKAGES</h2>
+              <h2 className="slide-title">THE ROYAL PACKAGES ($25 TO $6,400)</h2>
               <p className="slide-desc">Choose from 6 transparent tiers on BNB Smart Chain with 100% USDT instant P2P settlement:</p>
               <div className="tiers-slide-grid">
                 {PROTOCOL_PACKAGES.map(pkg => (

@@ -5,12 +5,12 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { 
   LayoutDashboard, Users, Layers, Award, Gift, ArrowUpRight, 
   ExternalLink, Loader2, Sparkles, AlertCircle, RefreshCw, 
-  BookOpen, Menu, X, Wallet, ShieldCheck, Lock, AlertTriangle, Zap, Flame 
+  BookOpen, Menu, X, Wallet, ShieldCheck, Lock, AlertTriangle, Zap, Flame, Crown 
 } from 'lucide-react';
 
-import { ERC20_ABI, SOVEREIGN_CORE_ABI, ALTRUVA_CORE_ABI } from './abis';
+import { ERC20_ABI, SOVEREIGN_CORE_ABI, ALTRUVA_CORE_ABI, OMNI_NEXUS_CORE_ABI } from './abis';
 import addresses from './addresses.json';
-import { PROTOCOL_NAME, PROTOCOL_EDITION } from './planConfig';
+import { PROTOCOL_NAME, PROTOCOL_EDITION, PROTOCOL_FULL_NAME } from './planConfig';
 
 import AltruvaLogo from './components/AltruvaLogo';
 import PresentationModal from './components/PresentationModal';
@@ -19,6 +19,7 @@ import Dashboard from './components/Dashboard';
 import GlobalSingleLeg from './components/GlobalSingleLeg';
 import BinaryAndLevels from './components/BinaryAndLevels';
 import LeadershipPool from './components/LeadershipPool';
+import RoyalCrownLeaderboard from './components/RoyalCrownLeaderboard';
 import WithdrawModal from './components/WithdrawModal';
 import FaucetModal from './components/FaucetModal';
 import LiveGlobalQueueStream from './components/LiveGlobalQueueStream';
@@ -518,8 +519,8 @@ export default function App() {
           <div className="nav-brand" onClick={() => setActiveTab(isConnected ? 'dashboard' : 'manual')}>
             <AltruvaLogo size={36} />
             <div className="brand-text-box">
-              <span className="brand-name">ALTRUVA</span>
-              <span className="brand-sub">PROTOCOL v3.3 · 10X VIRAL</span>
+              <span className="brand-name">OMNI-NEXUS</span>
+              <span className="brand-sub">PROTOCOL v4.4 · THE ROYAL VIP EDITION</span>
             </div>
           </div>
 
@@ -534,16 +535,22 @@ export default function App() {
                   <LayoutDashboard size={15} /> Dashboard
                 </button>
                 <button 
+                  className={`nav-tab ${activeTab === 'throne' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('throne')}
+                >
+                  <Crown size={15} className="gold" /> Royal Throne 👑
+                </button>
+                <button 
                   className={`nav-tab ${activeTab === 'singleLeg' ? 'active' : ''}`}
                   onClick={() => setActiveTab('singleLeg')}
                 >
-                  <Users size={15} /> Monoline Nexus (30%)
+                  <Users size={15} /> Globaline Grid (30%)
                 </button>
                 <button 
                   className={`nav-tab ${activeTab === 'binary' ? 'active' : ''}`}
                   onClick={() => setActiveTab('binary')}
                 >
-                  <Layers size={15} /> Velocity Multi-Tier (25%)
+                  <Layers size={15} /> Velocity Matrix (40 Levels)
                 </button>
                 <button 
                   className={`nav-tab ${activeTab === 'leadership' ? 'active' : ''}`}
@@ -555,7 +562,7 @@ export default function App() {
                   className={`nav-tab ${activeTab === 'manual' ? 'active' : ''}`}
                   onClick={() => setActiveTab('manual')}
                 >
-                  <BookOpen size={15} /> Protocol Manual
+                  <BookOpen size={15} /> Protocol Blueprint
                 </button>
               </>
             ) : (
@@ -563,7 +570,7 @@ export default function App() {
                 className={`nav-tab ${activeTab === 'manual' ? 'active' : ''}`}
                 onClick={() => setActiveTab('manual')}
               >
-                <BookOpen size={15} /> Protocol Manual & Blueprint
+                <BookOpen size={15} /> Protocol Blueprint & Manual
               </button>
             )}
           </div>
@@ -622,20 +629,23 @@ export default function App() {
                 <button onClick={() => { setActiveTab('dashboard'); setMobileMenuOpen(false); }}>
                   📊 Dashboard
                 </button>
+                <button onClick={() => { setActiveTab('throne'); setMobileMenuOpen(false); }}>
+                  👑 Royal Throne & Photo Hub
+                </button>
                 <button onClick={() => { handleClaimFreeUSDT(); setMobileMenuOpen(false); }}>
                   🎁 Claim 100 Free USDT (BNB Test)
                 </button>
                 <button onClick={() => { setActiveTab('singleLeg'); setMobileMenuOpen(false); }}>
-                  👥 Monoline Nexus Yield (30%)
+                  👥 Globaline Nexus Grid (30%)
                 </button>
                 <button onClick={() => { setActiveTab('binary'); setMobileMenuOpen(false); }}>
-                  ⚡ Velocity Multi-Tier (25%)
+                  ⚡ Velocity Matrix (40 Levels)
                 </button>
                 <button onClick={() => { setActiveTab('leadership'); setMobileMenuOpen(false); }}>
                   🔥 FOMO Apocalypse & Cashback (15%)
                 </button>
                 <button onClick={() => { setActiveTab('manual'); setMobileMenuOpen(false); }}>
-                  📖 Protocol Manual
+                  📖 Protocol Blueprint
                 </button>
                 <button onClick={() => { setIsPresModalOpen(true); setMobileMenuOpen(false); }}>
                   ✨ Master Presentation
@@ -647,7 +657,7 @@ export default function App() {
             ) : (
               <>
                 <button onClick={() => { setActiveTab('manual'); setMobileMenuOpen(false); }}>
-                  📖 Protocol Manual & Blueprint
+                  📖 Protocol Blueprint & Manual
                 </button>
                 <button onClick={() => { setIsPresModalOpen(true); setMobileMenuOpen(false); }}>
                   ✨ Master Presentation
@@ -728,6 +738,17 @@ export default function App() {
               />
             )}
 
+            {activeTab === 'throne' && (
+              <RoyalCrownLeaderboard 
+                address={address}
+                isConnected={isConnected}
+                userData={userData}
+                userDirects={userDirects}
+                totalCompanyVolume={totalCompanyVolume}
+                showToast={showToast}
+              />
+            )}
+
             {activeTab === 'singleLeg' && (
               <GlobalSingleLeg 
                 address={address}
@@ -776,32 +797,32 @@ export default function App() {
             <span>Dashboard</span>
           </button>
           <button 
+            className={`mbn-item ${activeTab === 'throne' ? 'active' : ''}`}
+            onClick={() => setActiveTab('throne')}
+          >
+            <Crown size={18} className="gold" />
+            <span>Throne 👑</span>
+          </button>
+          <button 
             className={`mbn-item ${activeTab === 'singleLeg' ? 'active' : ''}`}
             onClick={() => setActiveTab('singleLeg')}
           >
             <Users size={18} />
-            <span>Monoline</span>
+            <span>Globaline</span>
           </button>
           <button 
             className={`mbn-item ${activeTab === 'binary' ? 'active' : ''}`}
             onClick={() => setActiveTab('binary')}
           >
             <Layers size={18} />
-            <span>Velocity</span>
-          </button>
-          <button 
-            className={`mbn-item ${activeTab === 'leadership' ? 'active' : ''}`}
-            onClick={() => setActiveTab('leadership')}
-          >
-            <Flame size={18} />
-            <span>FOMO</span>
+            <span>Matrix</span>
           </button>
           <button 
             className={`mbn-item ${activeTab === 'manual' ? 'active' : ''}`}
             onClick={() => setActiveTab('manual')}
           >
             <BookOpen size={18} />
-            <span>Manual</span>
+            <span>Blueprint</span>
           </button>
         </div>
       )}

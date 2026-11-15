@@ -30,14 +30,14 @@ export default function GlobalSingleLeg({
     setTimeout(() => setCopiedAddr(null), 2500);
   };
 
-  // Build 15 Active Uplines dynamically from on-chain state
+  // Build 10 Active Uplines dynamically from on-chain state (2% each = 20%)
   const uplineList = [];
-  for (let lvl = 1; lvl <= 15; lvl++) {
+  for (let lvl = 1; lvl <= 10; lvl++) {
     const targetIdx = userIndex - lvl;
     if (targetIdx >= 1) {
       const onChain = onChainUsers.find(u => u.index === targetIdx);
       const pkg = activePkg || 100;
-      const earned = (pkg * 0.01).toFixed(2);
+      const earned = (pkg * 0.02).toFixed(2);
       const addr = onChain ? onChain.address : `0x${((targetIdx * 7919) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 6271) % 0xffff).toString(16).padStart(4, '0')}`;
       uplineList.push({
         level: lvl,
@@ -58,14 +58,14 @@ export default function GlobalSingleLeg({
     }
   }
 
-  // Build 15 Active Downlines dynamically from on-chain state
+  // Build 5 Active Downlines dynamically from on-chain state (2% each = 10%)
   const downlineList = [];
-  for (let lvl = 1; lvl <= 15; lvl++) {
+  for (let lvl = 1; lvl <= 5; lvl++) {
     const targetIdx = userIndex + lvl;
     const isOccupied = totalUsers > 0 ? (targetIdx <= totalUsers) : (lvl <= 5);
     const onChain = onChainUsers.find(u => u.index === targetIdx);
     const pkg = activePkg || 50;
-    const earned = (pkg * 0.01).toFixed(2);
+    const earned = (pkg * 0.02).toFixed(2);
     const addr = onChain 
       ? onChain.address 
       : (isOccupied ? `0x${((targetIdx * 8831) % 0xffffffff).toString(16).padStart(8, '0')}...${((targetIdx * 4423) % 0xffff).toString(16).padStart(4, '0')}` : null);
@@ -88,13 +88,13 @@ export default function GlobalSingleLeg({
         <div className="sh-top">
           <div className="sh-title-box">
             <span className="sh-pill gold-gradient-text">POOL 02 (30% LIVE P2P SPLIT)</span>
-            <h2>MONOLINE NEXUS YIELD</h2>
-            <p>15 Active Uplines + 15 Active Downlines (1% from each = 30% Total Monoline Commission).</p>
+            <h2>GLOBALINE NEXUS GRID</h2>
+            <p>10 Active Uplines + 5 Active Downlines (Total 15 Wallets @ 2% each = 30% Yield with Dynamic Compression).</p>
           </div>
           <div className="sh-stats-box">
             <div className="stat-mini">
-              <span>Monoline Active Depth:</span>
-              <strong className="cyan-gradient-text">15 UP + 15 DOWN</strong>
+              <span>Globaline Active Depth:</span>
+              <strong className="cyan-gradient-text">10 UP + 5 DOWN (15 WALLETS)</strong>
             </div>
             <div className="stat-mini">
               <span>Dynamic Compression:</span>
@@ -106,13 +106,13 @@ export default function GlobalSingleLeg({
         {/* Compression Explainer Strip */}
         <div className="daily-rules-strip glass-panel">
           <div className="rule-badge-col">
-            <span className="r-tag">15 ACTIVE UPLINES (15%)</span>
-            <p>Earn 1% dividend on package activations and every auto-reinvestment from 15 members above you.</p>
+            <span className="r-tag">10 ACTIVE UPLINES (20%)</span>
+            <p>Earn 2% dividend on package activations and every auto-reinvestment from 10 members above you.</p>
           </div>
           <div className="rule-sep">+</div>
           <div className="rule-badge-col">
-            <span className="r-tag gold">15 ACTIVE DOWNLINES (15%)</span>
-            <p>Earn 1% dividend on package activations and every auto-reinvestment from 15 members below you.</p>
+            <span className="r-tag gold">5 ACTIVE DOWNLINES (10%)</span>
+            <p>Earn 2% dividend on package activations and every auto-reinvestment from 5 members below you.</p>
           </div>
         </div>
       </div>
@@ -123,19 +123,19 @@ export default function GlobalSingleLeg({
           className={`subtab-btn ${activeSubView === 'monoline' ? 'active' : ''}`}
           onClick={() => setActiveSubView('monoline')}
         >
-          <Zap size={16} /> Complete 30-Wallet Active Monoline
+          <Zap size={16} /> Complete 15-Wallet Active Globaline
         </button>
         <button 
           className={`subtab-btn ${activeSubView === 'uplines' ? 'active' : ''}`}
           onClick={() => setActiveSubView('uplines')}
         >
-          <ArrowUp size={16} /> 15 Active Uplines (15%)
+          <ArrowUp size={16} /> 10 Active Uplines (20%)
         </button>
         <button 
           className={`subtab-btn ${activeSubView === 'downlines' ? 'active' : ''}`}
           onClick={() => setActiveSubView('downlines')}
         >
-          <ArrowDown size={16} /> 15 Active Downlines (15%)
+          <ArrowDown size={16} /> 5 Active Downlines (10%)
         </button>
       </div>
 

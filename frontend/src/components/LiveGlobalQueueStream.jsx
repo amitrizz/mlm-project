@@ -40,7 +40,7 @@ export default function LiveGlobalQueueStream({
       const realItems = onChainUsers.map((u, i) => ({
         id: `real-${u.index}`,
         wallet: `${u.address.slice(0, 6)}...${u.address.slice(-4)}`,
-        action: `Monoline Position #${u.index}`,
+        action: `Globaline Position #${u.index}`,
         detail: `Verified On-Chain Node on BSC Testnet`
       }));
       setTickerItems([...realItems, ...LIVE_STREAM_BLOCK.initialTicker]);

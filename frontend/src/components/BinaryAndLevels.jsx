@@ -4,96 +4,69 @@ import AltruvaLogo from './AltruvaLogo';
 
 export default function BinaryAndLevels({ userData, userDirects = [], txLoading }) {
   const [activeSubTab, setActiveSubTab] = useState('velocity'); // 'velocity' or 'override'
+  const [showAll40Levels, setShowAll40Levels] = useState(false);
 
   const directCount = Number(userData?.directActiveCount || userData?.directCount || (userDirects?.length || 0));
   const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 0);
 
-  // 9-Level Velocity Generation Matrix dynamically calculated from real user data
+  // Package-wise maximum depth calculator (10 to 40 levels)
+  const getMaxDepth = (pkg) => {
+    if (pkg < 50) return 10;
+    if (pkg < 100) return 15;
+    if (pkg < 200) return 20;
+    if (pkg < 500) return 25;
+    if (pkg < 1000) return 30;
+    return 40;
+  };
+
+  const userMaxDepth = getMaxDepth(activePkg);
   const baseMemberVol = activePkg > 0 ? activePkg : 50;
 
-  const levelsConfig = [
-    { 
-      level: 1, 
-      pct: 13, 
-      reqDirects: 0, 
-      members: directCount, 
-      vol: directCount * baseMemberVol, 
-      earned: Number((directCount * baseMemberVol * 0.13).toFixed(2)), 
-      isUnlocked: true 
-    },
-    { 
-      level: 2, 
-      pct: 3, 
-      reqDirects: 1, 
-      members: directCount >= 1 ? directCount * 2 : 0, 
-      vol: directCount >= 1 ? directCount * 2 * baseMemberVol : 0, 
-      earned: directCount >= 1 ? Number((directCount * 2 * baseMemberVol * 0.03).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 1 
-    },
-    { 
-      level: 3, 
-      pct: 2, 
-      reqDirects: 1, 
-      members: directCount >= 1 ? directCount * 3 : 0, 
-      vol: directCount >= 1 ? directCount * 3 * baseMemberVol : 0, 
-      earned: directCount >= 1 ? Number((directCount * 3 * baseMemberVol * 0.02).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 1 
-    },
-    { 
-      level: 4, 
-      pct: 1, 
-      reqDirects: 2, 
-      members: directCount >= 2 ? directCount * 4 : 0, 
-      vol: directCount >= 2 ? directCount * 4 * baseMemberVol : 0, 
-      earned: directCount >= 2 ? Number((directCount * 4 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 2 
-    },
-    { 
-      level: 5, 
-      pct: 1, 
-      reqDirects: 2, 
-      members: directCount >= 2 ? directCount * 5 : 0, 
-      vol: directCount >= 2 ? directCount * 5 * baseMemberVol : 0, 
-      earned: directCount >= 2 ? Number((directCount * 5 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 2 
-    },
-    { 
-      level: 6, 
-      pct: 1, 
-      reqDirects: 2, 
-      members: directCount >= 2 ? directCount * 6 : 0, 
-      vol: directCount >= 2 ? directCount * 6 * baseMemberVol : 0, 
-      earned: directCount >= 2 ? Number((directCount * 6 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 2 
-    },
-    { 
-      level: 7, 
-      pct: 1, 
-      reqDirects: 3, 
-      members: directCount >= 3 ? directCount * 7 : 0, 
-      vol: directCount >= 3 ? directCount * 7 * baseMemberVol : 0, 
-      earned: directCount >= 3 ? Number((directCount * 7 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 3 
-    },
-    { 
-      level: 8, 
-      pct: 1, 
-      reqDirects: 3, 
-      members: directCount >= 3 ? directCount * 8 : 0, 
-      vol: directCount >= 3 ? directCount * 8 * baseMemberVol : 0, 
-      earned: directCount >= 3 ? Number((directCount * 8 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 3 
-    },
-    { 
-      level: 9, 
-      pct: 1, 
-      reqDirects: 3, 
-      members: directCount >= 3 ? directCount * 10 : 0, 
-      vol: directCount >= 3 ? directCount * 10 * baseMemberVol : 0, 
-      earned: directCount >= 3 ? Number((directCount * 10 * baseMemberVol * 0.01).toFixed(2)) : 0, 
-      isUnlocked: directCount >= 3 
+  // Generate 40 Levels Velocity Generation Matrix
+  const allLevels = [];
+  for (let lvl = 1; lvl <= 40; lvl++) {
+    let pct = 1;
+    let reqDirects = 3;
+
+    if (lvl === 1) {
+      pct = 13;
+      reqDirects = 0;
+    } else if (lvl === 2) {
+      pct = 3;
+      reqDirects = 1;
+    } else if (lvl === 3) {
+      pct = 2;
+      reqDirects = 1;
+    } else if (lvl <= 6) {
+      pct = 1;
+      reqDirects = 2;
+    } else {
+      pct = 1;
+      reqDirects = 3;
     }
-  ];
+
+    const isDirectsQualified = lvl === 1 ? true : (directCount >= reqDirects);
+    const isPackageQualified = lvl <= userMaxDepth;
+    const isUnlocked = isDirectsQualified && isPackageQualified;
+
+    const members = isUnlocked ? (lvl === 1 ? directCount : Math.max(0, directCount * lvl)) : 0;
+    const vol = members * baseMemberVol;
+    const earned = isUnlocked ? Number((vol * (pct / 100)).toFixed(2)) : 0;
+
+    allLevels.push({
+      level: lvl,
+      pct,
+      reqDirects,
+      isUnlocked,
+      isPackageQualified,
+      members,
+      vol,
+      earned
+    });
+  }
+
+  // Display top 15 by default with toggle to expand all 40 levels
+  const displayedLevels = showAll40Levels ? allLevels : allLevels.slice(0, 15);
 
   return (
     <div className="binary-levels-wrap">
@@ -113,20 +86,20 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
         </button>
       </div>
 
-      {/* STREAM 3: VELOCITY MULTI-TIER BONUS */}
+      {/* STREAM 3: VELOCITY MATRIX BONUS (40 LEVELS) */}
       {activeSubTab === 'velocity' && (
         <div className="binary-tab-content">
           <div className="stream-header-card glass-panel">
             <div className="sh-top">
               <div className="sh-title-box">
                 <span className="sh-pill gold-gradient-text">POOL 03 (25% LIVE P2P SPLIT)</span>
-                <h2>VELOCITY MULTI-TIER BONUS</h2>
-                <p>9-Level Generation unilevel commission with fixed 13% direct reward on Level 1.</p>
+                <h2>VELOCITY MATRIX BONUS (UP TO 40 LEVELS)</h2>
+                <p>Package-wise deep generation unilevel commission with fixed 13% direct reward on Level 1.</p>
               </div>
               <div className="sh-stats-box">
                 <div className="stat-mini">
-                  <span>Level 1 Direct Rate:</span>
-                  <strong className="gold-gradient-text">13% Fixed Instant</strong>
+                  <span>Your Qualified Depth:</span>
+                  <strong className="gold-gradient-text">{userMaxDepth} Levels Deep</strong>
                 </div>
                 <div className="stat-mini">
                   <span>Your Active Directs:</span>
@@ -154,20 +127,58 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
               <div className="rule-sep">+</div>
               <div className="rule-badge-col">
                 <span className="r-tag green">3 DIRECTS</span>
-                <p>Unlocks Levels 7, 8 & 9 (Full 25% Unilevel + Working Withdrawal!).</p>
+                <p>Unlocks Levels 7 to 40 (Full Unilevel + Working 70/30 Withdrawal!).</p>
               </div>
             </div>
           </div>
 
-          {/* 9-Level Generation Table */}
+          {/* Package-Wise Level Depth Matrix Grid */}
+          <div className="package-depth-card glass-panel">
+            <div className="pdc-header">
+              <h4>📦 Package-Wise Level Depth Matrix (Velocity Matrix Depth)</h4>
+              <small>Higher packages automatically unlock deeper generation commissions:</small>
+            </div>
+            <div className="pdc-grid">
+              {[
+                { pkg: "$25 Package", depth: "10 Levels Deep", target: 25 },
+                { pkg: "$50 Package", depth: "15 Levels Deep", target: 50 },
+                { pkg: "$100 Package", depth: "20 Levels Deep", target: 100 },
+                { pkg: "$200 Package", depth: "25 Levels Deep", target: 200 },
+                { pkg: "$500 Package", depth: "30 Levels Deep", target: 500 },
+                { pkg: "$1,000 to $6,400", depth: "40 Levels Deep", target: 1000 }
+              ].map((tier, idx) => (
+                <div 
+                  key={idx} 
+                  className={`pdc-tier-chip glass-panel ${activePkg >= tier.target ? 'qualified' : ''}`}
+                >
+                  <span className="pdc-pkg-name">{tier.pkg}</span>
+                  <strong className="pdc-depth-val gold-gradient-text">{tier.depth}</strong>
+                  {activePkg >= tier.target && <span className="pdc-active-check">✓ Active</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* 40-Level Generation Table */}
           <div className="unilevel-table-panel glass-panel">
+            <div className="table-top-bar">
+              <h4>Velocity Matrix Generations ({displayedLevels.length} of 40 Levels Displayed)</h4>
+              <button 
+                className="toggle-levels-btn"
+                onClick={() => setShowAll40Levels(!showAll40Levels)}
+              >
+                {showAll40Levels ? 'Show First 15 Levels' : 'View All 40 Levels ➔'}
+              </button>
+            </div>
+
             <div className="table-responsive">
               <table className="altruva-table manual-tbl">
                 <thead>
                   <tr>
                     <th>LEVEL</th>
                     <th>COMMISSION %</th>
-                    <th>UNLOCK REQUIREMENT</th>
+                    <th>DIRECTS REQUIRED</th>
+                    <th>PACKAGE DEPTH</th>
                     <th>STATUS</th>
                     <th>TEAM MEMBERS</th>
                     <th>VOLUME (USDT)</th>
@@ -175,7 +186,7 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
                   </tr>
                 </thead>
                 <tbody>
-                  {levelsConfig.map((lvl) => (
+                  {displayedLevels.map((lvl) => (
                     <tr key={lvl.level} className={lvl.isUnlocked ? 'unlocked-row' : 'locked-row'}>
                       <td>
                         <strong className={lvl.level === 1 ? 'gold-gradient-text' : 'cyan-gradient-text'}>
@@ -190,6 +201,11 @@ export default function BinaryAndLevels({ userData, userDirects = [], txLoading 
                       <td>
                         <small>
                           {lvl.reqDirects === 0 ? '0 Directs (Always Open)' : `${lvl.reqDirects} Directs Required`}
+                        </small>
+                      </td>
+                      <td>
+                        <small className={lvl.isPackageQualified ? 'green-txt' : 'yellow-txt'}>
+                          {lvl.isPackageQualified ? '✓ Qualified' : 'Upgrade Needed'}
                         </small>
                       </td>
                       <td>

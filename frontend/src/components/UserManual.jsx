@@ -19,36 +19,36 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
 
   const faqs = [
     {
-      q: "What is Altruva Protocol v3.3?",
-      a: "Altruva Protocol v3.3 (Master Final Architecture & 10X Viral Edition) is a 100% peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. No protocol funds are retained in the contract ledger."
+      q: "What is Omni-Nexus Global Protocol v4.4?",
+      a: "Omni-Nexus Global Protocol (v4.4 — The Royal VIP Edition) is a peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. It features the Royal Crown Throne, Photo-Upload Hub, Smart Compounding loops, and up to 40 levels of matrix generation depth."
     },
     {
-      q: "How does the 100% Instant Live Split work across the 5 pools?",
-      a: "Every package activation ($25 to $1,000) splits instantly on-chain: 30% to Time-Bomb Quantum ROI, 30% to Monoline Nexus Yield (15 Up + 15 Down active wallets), 25% to Velocity Multi-Tier Bonus (9 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H FOMO Apocalypse Jackpot."
+      q: "How does the Live Split work across the 5 Elite Pools?",
+      a: "Every package activation ($25 to $6,400) splits instantly on-chain: 30% to Quantum Genesis ROI, 30% to Globaline Nexus Grid (10 Up + 5 Down active wallets), 25% to Velocity Matrix Bonus (up to 40 generation levels), 10% to 72H Alpha Cashback Surge, and 5% to the 24H Apocalypse Jackpot Vault."
     },
     {
-      q: "How does the Time-Bomb Quantum ROI (30% Pool) operate?",
-      a: "It is a global passive pool with a 2X (200%) cap. You earn 3% daily for the first 10 days, followed by 1% daily. Sponsoring 1 new direct referral immediately resets the 3% daily rate for another 10 days! ROI withdrawals are always unlocked with a 40% cash / 60% auto-reinvestment ratio."
+      q: "How does the Quantum Genesis ROI operate?",
+      a: "It is a global passive pool with a 2X (200%) cap. You earn 3% daily for the first 10 days, followed by 1% daily. Sponsoring 1 new direct referral immediately resets the 3% daily rate for another 10 days! ROI withdrawals are always unlocked with a 40% cash / 60% auto-reinvestment compounding ratio."
     },
     {
-      q: "What is the Monoline Nexus Yield (30% Pool) with Dynamic Compression?",
-      a: "Every user enters a global single leg. You earn 1% commission from the 15 active wallets above you and 15 active wallets below you. Non-active or retired IDs are automatically skipped through Dynamic Compression so you only earn from active participants."
+      q: "What is the Globaline Nexus Grid (30% Pool) with Dynamic Compression?",
+      a: "Every user enters a global single leg. You earn 2% commission each from the 10 active wallets above you and 5 active wallets below you (Total 15 wallets @ 2% = 30%). Non-active or retired IDs are automatically skipped through Dynamic Compression so you only earn from active participants."
     },
     {
-      q: "How do Level Unlocks work in Velocity Multi-Tier (25% Pool)?",
-      a: "Level 1 pays 13% fixed with 0 directs required. Levels 2-3 pay 3% and 2% (requires 1 direct). Levels 4-6 pay 1% each (requires 2 directs). Levels 7-9 pay 1% each (requires 3 directs). Total generation distribution is 25%."
+      q: "How does the Package-Wise Depth Matrix work in Velocity Matrix (Up to 40 Levels)?",
+      a: "Your active package tier unlocks generation depth: $25 = 10 Levels, $50 = 15 Levels, $100 = 20 Levels, $200 = 25 Levels, $500 = 30 Levels, and $1,000 to $6,400 = 40 Levels Deep! Level 1 pays 13% fixed (0 directs), L2-L3 pay 3% & 2% (1 direct), L4-L6 pay 1% each (2 directs), and L7-L40 pay 1% each (3 directs)."
     },
     {
-      q: "What is the 10-Minute Ghost Position and 72H Cashback Surge?",
-      a: "Upon connecting your wallet, a 10-minute Ghost Position temporarily locks your slot in the global single leg with a 09:59 reverse countdown. If you activate and sponsor 3 direct active members within 72 hours, 100% of your joining amount is refunded immediately via the 72H Alpha Cashback Surge!"
+      q: "What is the Royal Throne Leaderboard and Photo-Upload Hub?",
+      a: "A unique VIP Hall of Fame where the Rank #1 leader is crowned Emperor with a glowing Golden Royal Crown (राजा का ताज) and VIP frame. Every leader can upload their profile photo or team logo to shine live on the global leaderboard alongside their rank."
     },
     {
-      q: "What are the 300% Hard-Cap and Re-Birth Loop rules?",
-      a: "Total cumulative income from all streams is capped at 300% (3X) of your active package tier. When 3X is reached, income is hard-locked (overflows route to the Stability Pool), the old ID is retired, and an automatic Re-Birth ID is spawned at the bottom index (or VIP Fast-Track queue for leaders with 3+ directs in 30 days)."
+      q: "What are the 300% Hard-Cap and Smart Compounding Loop rules?",
+      a: "Total cumulative income from all streams is capped at 300% (3X) of your active package tier. The auto-reinvested portion adds directly into your active package, automatically upgrading you to higher tiers (unlocking deeper matrix levels up to 40 levels) without spending fresh money."
     },
     {
-      q: "What are the Withdrawal Rules and Speed-Decay Engine?",
-      a: "Global minimum withdrawal is $5 USDT. ROI is unlocked without team conditions (40% Cash / 60% Reinvest). Working network income is locked until you achieve 3 active direct referrals, unlocking at 70% Cash / 30% Reinvest. If you have no direct in 14 days, payout speed temporarily drops from 50% to 10% until 1 direct is made."
+      q: "What are the Withdrawal Rules and 30-Day Speed-Decay Engine?",
+      a: "Global minimum withdrawal is $5 USDT. ROI is unlocked without team conditions (40% Cash / 60% Reinvest). Working network income is locked until you achieve 3 active direct referrals, unlocking at 70% Cash / 30% Reinvest. If you have no direct in 30 days, payout speed temporarily drops from 50% to 10% until 1 direct is made."
     }
   ];
 
@@ -63,14 +63,14 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
           <Sparkles size={14} className="gold" /> {PROTOCOL_EDITION.toUpperCase()}
         </div>
         <h1 className="manual-title">
-          WELCOME TO <span className="gold-gradient-text">ALTRUVA v3.3</span>
+          WELCOME TO <span className="gold-gradient-text">OMNI-NEXUS v4.4</span>
         </h1>
         <p className="manual-subtitle cyan-gradient-text">
-          100% P2P Instant Split · BNB Chain (BSC) · Pure USDT (BEP-20) · Zero Ledger Retention
+          The Royal VIP Edition · BNB Chain (BSC) · Pure USDT (BEP-20) · 40-Level Compounding Matrix
         </p>
         <p className="manual-intro">
-          Official Master Final Architecture & Blueprint: Complete breakdown of the 6 Packages, 5 Community Pools, 
-          10-Minute Ghost Position, 72H Alpha Cashback Surge, Speed-Decay Engine, and the 300% Re-Birth Loop.
+          Official Master VIP Blueprint: Complete breakdown of the 9 Packages ($25 to $6,400), 5 Elite Pools, 
+          10-Minute Ghost Position, 72H Alpha Cashback Surge, Royal Throne Leaderboard, Photo-Upload Hub, and the 40-Level Matrix.
         </p>
 
         {/* Action Buttons */}

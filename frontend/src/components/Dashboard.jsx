@@ -241,7 +241,7 @@ export default function Dashboard({
             <span className="stat-cur">USDT</span>
           </div>
           <div className="stat-sub-info">
-            <span>Monoline Reach: <strong>15 UP + 15 DOWN (30%)</strong></span>
+            <span>Globaline Reach: <strong>10 UP + 5 DOWN (30%)</strong></span>
             <small>Dynamic Compression Active (Skips Inactive IDs)</small>
           </div>
         </div>
@@ -382,7 +382,7 @@ export default function Dashboard({
                 <span className="p-tag">{pkg.tier}</span>
                 <span className="p-price gold-gradient-text">${pkg.val} USDT</span>
               </div>
-              <strong className="p-levels">{pkg.monolineReach}</strong>
+              <strong className="p-levels">{pkg.monolineReach} · {pkg.maxDepth} Levels Depth</strong>
               <small className="p-perks">2X ROI: ${pkg.roiCap} | 3X Cap: ${pkg.hardCap3X}</small>
             </div>
           ))}
