@@ -259,7 +259,6 @@ export default function Dashboard({
             <span className="stat-cur">BOOSTED</span>
           </div>
           <div className="stat-sub-info">
-            <span>Passive Yield Cap: <strong>2X (${(activePkg * 2).toFixed(0)} USDT)</strong></span>
             <small>Sponsor 1 Direct to reset 3% daily for 10 days!</small>
           </div>
         </div>

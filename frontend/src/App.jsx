@@ -752,6 +752,8 @@ export default function App() {
                 userData={userData}
                 userDirects={userDirects}
                 totalCompanyVolume={totalCompanyVolume}
+                totalUsers={totalUsers}
+                onChainUsers={onChainUsers}
                 showToast={showToast}
               />
             )}
