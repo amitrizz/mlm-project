@@ -128,7 +128,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
                 <span className="p-tag">{pkg.tier}</span>
                 <span className="p-price gold-gradient-text">${pkg.val} USDT</span>
               </div>
-              <strong className="p-levels">{pkg.monolineReach} Active Wallets</strong>
+              <strong className="p-levels">{pkg.monolineReach} Active Wallets · {pkg.maxDepth} Levels Deep</strong>
             </div>
           ))}
         </div>

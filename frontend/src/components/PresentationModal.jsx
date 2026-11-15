@@ -71,7 +71,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
                   <div key={pkg.val} className="tier-box-item glass-panel">
                     <span className="t-name gold-gradient-text">{pkg.label}</span>
                     <strong className="t-price">${pkg.val} USDT</strong>
-                    <span className="t-detail">{pkg.monolineReach} Active Wallets</span>
+                    <span className="t-detail">{pkg.monolineReach} Active Wallets · {pkg.maxDepth} Levels Deep</span>
                   </div>
                 ))}
               </div>
