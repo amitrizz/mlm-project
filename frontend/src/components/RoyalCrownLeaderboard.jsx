@@ -198,16 +198,52 @@ export default function RoyalCrownLeaderboard({
           </div>
 
           <h2 className="royal-title gold-gradient-text">
-            राजा का दरबार: VIP लाइव रैंकिंग & फोटो-अपलोड हब
+            VIP Hall of Fame & Live Crown Ranking
           </h2>
           <p className="royal-subtitle">
-            दुनिया का सबसे प्रतिष्ठित हॉल-ऑफ-फ़ेम! रैंक #1 सम्राट के ताज से लेकर 40-लेवल इन्फिनिटी रॉयल्टी तक — अपनी प्रोफाइल फोटो अपलोड करें और राजा के मुकुट के साथ लाइव चमकें।
+            Global decentralized leaderboard celebrating apex leaders. Showcase your verified photo on the throne podium and unlock 40-level deep generation matrix royalties.
           </p>
+
+          {/* 3 Visual Diagram Feature Cards */}
+          <div className="throne-diagram-grid">
+            <div className="throne-diag-card glass-panel">
+              <div className="tdc-icon-wrap gold-glow">
+                <Crown size={22} className="gold" />
+              </div>
+              <div className="tdc-content">
+                <span className="tdc-pill">STAGE 01</span>
+                <h4>Apex Emperor Throne</h4>
+                <p>Rank #1 leader is crowned Emperor with real-time glowing crown.</p>
+              </div>
+            </div>
+
+            <div className="throne-diag-card glass-panel">
+              <div className="tdc-icon-wrap cyan-glow">
+                <Camera size={22} className="cyan" />
+              </div>
+              <div className="tdc-content">
+                <span className="tdc-pill">STAGE 02</span>
+                <h4>VIP Photo & Logo Hub</h4>
+                <p>Upload profile avatar or team logo to shine live on the table.</p>
+              </div>
+            </div>
+
+            <div className="throne-diag-card glass-panel">
+              <div className="tdc-icon-wrap green-glow">
+                <Layers size={22} className="green" />
+              </div>
+              <div className="tdc-content">
+                <span className="tdc-pill">STAGE 03</span>
+                <h4>40-Level Infinity Royalty</h4>
+                <p>Up to 40 unilevel depths & 10% dynamic override allocations.</p>
+              </div>
+            </div>
+          </div>
 
           <div className="royal-stats-bar glass-panel">
             <div className="rs-item">
               <span className="rs-lbl">Royal Crown #1 Status:</span>
-              <strong className="gold-gradient-text">👑 सम्राट सिंहासन (Emperor)</strong>
+              <strong className="gold-gradient-text">👑 Apex Emperor Throne</strong>
             </div>
             <div className="rs-item">
               <span className="rs-lbl">Admin Infinity Royalty:</span>
@@ -261,7 +297,7 @@ export default function RoyalCrownLeaderboard({
                 <span className="giant-crown">👑</span>
                 <span className="crown-glow-pulse"></span>
               </div>
-              <span className="emperor-title-badge">RANK #1 · सम्राट सिंहासन (EMPEROR)</span>
+              <span className="emperor-title-badge">RANK #1 · APEX EMPEROR THRONE</span>
             </div>
 
             {/* Emperor Royal Frame with Photo */}

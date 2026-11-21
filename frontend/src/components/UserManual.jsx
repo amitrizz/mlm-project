@@ -40,7 +40,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
     },
     {
       q: "What is the Royal Throne Leaderboard and Photo-Upload Hub?",
-      a: "A unique VIP Hall of Fame where the Rank #1 leader is crowned Emperor with a glowing Golden Royal Crown (राजा का ताज) and VIP frame. Every leader can upload their profile photo or team logo to shine live on the global leaderboard alongside their rank."
+      a: "A unique VIP Hall of Fame where the Rank #1 leader is crowned Emperor with a glowing Golden Royal Crown and VIP frame. Every leader can upload their profile photo or team logo to shine live on the global leaderboard alongside their rank."
     },
     {
       q: "What are the 300% Hard-Cap and Smart Compounding Loop rules?",
