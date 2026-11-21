@@ -169,9 +169,6 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
             <p>
               Advanced global queue. Earn combined 30% yield from your <strong>10 Active Uplines and 5 Active Downlines</strong> (unlocked according to package with Dynamic Compression).
             </p>
-            <div className="sdb-formula">
-              Dynamic Compression: Non-active or retired IDs are bypassed in real time so you only receive yields from active wallets!
-            </div>
           </div>
 
           {/* Pool 3 */}
