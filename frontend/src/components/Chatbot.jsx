@@ -34,7 +34,7 @@ const PRESETS = [
     answers: [
       "Velocity is a 9-level generation unilevel model: Level 1 pays 13% fixed, Level 2 pays 3%, Level 3 pays 2%, and Levels 4 through 9 pay 1% each (total 25%).",
       "Unlock Rules: Level 1 is unlocked with 0 directs; Levels 2–3 require 1 active direct; Levels 4–6 require 2 active directs; Levels 7–9 require 3 active directs.",
-      "Direct commission of 13% on Level 1 is credited instantly on every activation and upgrade.",
+      "Direct reward of 13% on Level 1 is credited instantly on every activation and upgrade.",
       "Working ledger withdrawal unlocks once you achieve at least 3 active direct referrals."
     ]
   },
@@ -84,7 +84,7 @@ const PRESETS = [
     q: "How does the Smart Contract guarantee Security?",
     answers: [
       "Altruva Protocol is 100% decentralized with on-chain instant P2P distribution on the BNB Chain.",
-      "All pool dividends and direct commissions are executed directly by verifiable smart contracts with zero counterparty risk."
+      "All pool dividends and direct rewards are executed directly by verifiable smart contracts with zero counterparty risk."
     ]
   }
 ];

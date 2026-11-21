@@ -95,45 +95,50 @@ export default function Dashboard({
 
   return (
     <div className="dashboard-wrap">
-      {/* 10-Minute Ghost Position FOMO Banner (Visible if fresh account or wallet not yet active) */}
+      {/* 10-Minute Ghost Position FOMO Banner (Compact & Sleek Web3 Alert Bar) */}
       {!isRegistered && (
-        <div className="ghost-position-banner glass-panel">
-          <div className="gpb-left">
-            <div className="gpb-icon-box">
-              <Clock size={28} className="gold pulse" />
-            </div>
-            <div className="gpb-text">
-              <div className="gpb-badge-row">
-                <span className="gpb-badge">10-MINUTE GHOST POSITION RESERVED</span>
+        <div className="ghost-position-banner glass-panel compact-ghost-card">
+          <div className="gpb-compact-main">
+            <div className="gpb-compact-header">
+              <div className="gpb-compact-tag-group">
+                <div className="gpb-mini-icon">
+                  <Clock size={15} className="gold pulse" />
+                </div>
+                <span className="gpb-badge">10-MIN GHOST POSITION</span>
                 <span className="gpb-warning">ACTION REQUIRED</span>
               </div>
-              <h3>Temporary Global Monoline Position Locked!</h3>
-              <p>
-                Your position in the Global Single Leg is temporarily held. 
-                Incoming global participants are queuing underneath you!
-              </p>
-              <div className="gpb-live-queue">
-                <span>Protocol Volume: <strong className="green-txt">${Number(totalCompanyVolume || 0).toLocaleString()} USDT</strong></span>
-                <span className="dot">•</span>
-                <span>Active Participants: <strong className="cyan-gradient-text">{totalUsers || 0} Global Wallets</strong></span>
+              
+              <div className="gpb-compact-timer-box">
+                <span className="gpb-timer-lbl">EXPIRES:</span>
+                <strong className="gpb-timer-val gold-gradient-text">
+                  {formatTimer(ghostSeconds)}
+                </strong>
               </div>
             </div>
-          </div>
 
-          <div className="gpb-right">
-            <span className="gpb-timer-lbl">SLOT DELETION COUNTDOWN</span>
-            <div className="gpb-timer gold-gradient-text">
-              {formatTimer(ghostSeconds)}
+            <div className="gpb-compact-body">
+              <div className="gpb-compact-info">
+                <h4>Temporary Monoline Slot Locked!</h4>
+                <p>Incoming participants queuing below your wallet.</p>
+                <div className="gpb-micro-stats">
+                  <span>Vol: <strong className="green-txt">${Number(totalCompanyVolume || 0).toLocaleString()} USDT</strong></span>
+                  <span className="dot">•</span>
+                  <span>Queue: <strong className="cyan-gradient-text">{totalUsers || 0} Wallets</strong></span>
+                </div>
+              </div>
+
+              <div className="gpb-compact-action">
+                <button 
+                  className="gpb-activate-btn compact-btn"
+                  onClick={() => {
+                    const el = document.getElementById('activation-box');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  <Zap size={14} /> <span>Activate Slot</span>
+                </button>
+              </div>
             </div>
-            <button 
-              className="gpb-activate-btn"
-              onClick={() => {
-                const el = document.getElementById('activation-box');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              <Zap size={16} /> Activate Before Deletion
-            </button>
           </div>
         </div>
       )}
@@ -161,7 +166,7 @@ export default function Dashboard({
         </div>
 
         <div className="ref-link-box">
-          <span className="ref-lbl">YOUR DIRECT SPONSOR LINK (13% DIRECT COMMISSION)</span>
+          <span className="ref-lbl">YOUR DIRECT SPONSOR LINK (13% DIRECT REWARD)</span>
           <div className="ref-input-group">
             <input type="text" readOnly value={referralUrl} />
             <button className="copy-btn" onClick={copyReferral}>
@@ -283,7 +288,7 @@ export default function Dashboard({
                 <span className="yellow-txt"><Lock size={12} /> Need {3 - directs} more for Working Withdrawal</span>
               )}
             </div>
-            <small>Level 1 Pays 13% Fixed Commission</small>
+            <small>Level 1 Pays 13% Fixed Reward</small>
           </div>
         </div>
       </div>
@@ -356,7 +361,7 @@ export default function Dashboard({
         {!isRegistered && (
           <div className="reg-inputs-row">
             <div className="input-group full-width">
-              <label>Direct Sponsor Address (Receives 13% Instant Commission):</label>
+              <label>Direct Sponsor Address (Receives 13% Instant Reward):</label>
               <input 
                 type="text" 
                 placeholder="0x... (Defaults to Genesis Apex Master #1 if empty)"

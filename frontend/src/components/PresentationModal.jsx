@@ -178,7 +178,7 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
             <div className="slide-card">
               <div className="slide-badge">STREAM 03</div>
               <h2 className="slide-title">VELOCITY MULTI-TIER BONUS (25%)</h2>
-              <p className="slide-desc">9 Generation Levels with 13% Direct Commission on Level 1:</p>
+              <p className="slide-desc">Generation Levels with 13% Direct Reward on Level 1:</p>
               <div className="table-responsive">
                 <table className="altruva-table manual-tbl">
                   <thead>
