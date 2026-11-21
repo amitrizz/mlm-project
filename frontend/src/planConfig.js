@@ -30,7 +30,7 @@ export const PROTOCOL_PACKAGES = [
   { val: 1000, label: "$1,000 TITAN VIP", tier: "Tier 6", roiCap: 2000, hardCap3X: 3000, monolineReach: "10 Up + 5 Down", maxDepth: 40 }
 ];
 
-// Package-Wise Globaline Reach Tiers (Package ke hisab se)
+// Package-Wise Globaline Reach Tiers (According to Package)
 export const GLOBALINE_PACKAGE_TIERS = [
   { pkg: 25, label: "$25 Package", up: 2, down: 1, total: 3, reach: "2 Up + 1 Down" },
   { pkg: 50, label: "$50 Package", up: 4, down: 2, total: 6, reach: "4 Up + 2 Down" },

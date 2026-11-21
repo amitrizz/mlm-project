@@ -24,7 +24,7 @@ export default function GlobalSingleLeg({
   const userIndex = isRegistered ? Number(userData.globalIndex) : 1;
   const activePkg = Number(userData?.activePackageUSD || userData?.totalPackageUSD || 0);
 
-  // Dynamic Reach based on active package (Package ke hisab se)
+  // Dynamic Reach based on active package (According to Package)
   const userReach = getGlobalineReach(isRegistered ? activePkg : 0);
 
   const copyToClipboard = (text, key) => {
@@ -95,7 +95,7 @@ export default function GlobalSingleLeg({
           <div className="sh-title-box">
             <span className="sh-pill gold-gradient-text">POOL 02 (30% LIVE P2P SPLIT)</span>
             <h2>GLOBALINE NEXUS GRID</h2>
-            <p>10 Active Uplines + 5 Active Downlines with Dynamic Compression. Reach unlocks package ke hisab se ($25 = 2 Up/1 Down up to $500+ = 10 Up/5 Down).</p>
+            <p>10 Active Uplines + 5 Active Downlines with Dynamic Compression. Reach unlocks according to package ($25 = 2 Up/1 Down up to $500+ = 10 Up/5 Down).</p>
           </div>
           <div className="sh-stats-box">
             <div className="stat-mini">
@@ -115,10 +115,10 @@ export default function GlobalSingleLeg({
           </div>
         </div>
 
-        {/* Package-Wise Globaline Reach Grid (Package ke hisab se) */}
+        {/* Package-Wise Globaline Reach Grid (According to Package) */}
         <div className="package-depth-card glass-panel" style={{ marginTop: '1rem', marginBottom: '1rem' }}>
           <div className="pdc-header">
-            <h4>📦 Package-Wise Globaline Reach Matrix (Package ke hisab se)</h4>
+            <h4>📦 Package-Wise Globaline Reach Matrix (According to Package)</h4>
             <small>Higher packages automatically unlock more active Uplines and Downlines:</small>
           </div>
           <div className="pdc-grid">

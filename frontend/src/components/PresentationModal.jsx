@@ -153,18 +153,18 @@ export default function PresentationModal({ isOpen, onClose, onLaunchApp }) {
             <div className="slide-card">
               <div className="slide-badge">POOL 02</div>
               <h2 className="slide-title">GLOBALINE NEXUS GRID (30%)</h2>
-              <p className="slide-desc">10 Active Uplines + 5 Active Downlines with Dynamic Compression (Package ke hisab se):</p>
+              <p className="slide-desc">10 Active Uplines + 5 Active Downlines with Dynamic Compression (According to Package):</p>
               <div className="monoline-diagram glass-panel">
                 <div className="mono-row upline">
                   <span className="mono-tag cyan">10 ACTIVE UPLINES (2% EACH = 20%)</span>
-                  <p>2% dividend from active members who joined before you on activations and auto-reinvestments (unlocked package ke hisab se up to 10 Up).</p>
+                  <p>2% dividend from active members who joined before you on activations and auto-reinvestments (unlocked according to package up to 10 Up).</p>
                 </div>
                 <div className="mono-center-node gold-gradient-text">
                   ★ YOUR POSITION (CHRONOLOGICAL GLOBAL ID) ★
                 </div>
                 <div className="mono-row downline">
                   <span className="mono-tag gold">5 ACTIVE DOWNLINES (2% EACH = 10%)</span>
-                  <p>2% dividend from active members joining after you globally (unlocked package ke hisab se up to 5 Down).</p>
+                  <p>2% dividend from active members joining after you globally (unlocked according to package up to 5 Down).</p>
                 </div>
               </div>
               <div className="slide-callout-box glass-panel">
