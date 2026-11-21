@@ -330,7 +330,6 @@ export default function Dashboard({
             <AltruvaLogo size={28} />
             <div>
               <h3>{isRegistered ? 'Upgrade / Top-Up Active Package' : 'Activate TurboVault Community Package'}</h3>
-              <p>100% USDT (BEP-20) P2P Live Split. Unlocks 15 Up + 15 Down Monoline and 2X ROI Cap.</p>
             </div>
           </div>
           <div className="wallet-bal-pill-group">
