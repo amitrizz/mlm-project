@@ -3,6 +3,7 @@
   "network": "BSC Testnet",
   "usdt": "0xcC54199B539EeA878510103F5D4a8CfD61C57Bb9",
   "altruvaCore": "0xC653113ca00B7F33f6f662a1EfBB7F4a6DfC00A3",
+  "turbovaultCore": "0xC653113ca00B7F33f6f662a1EfBB7F4a6DfC00A3",
   "tokenSymbol": "USDT",
   "currency": "USDT"
 }

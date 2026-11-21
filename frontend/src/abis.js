@@ -10,8 +10,8 @@ export const ERC20_ABI = [
   "function transferFrom(address from, address to, uint256 value) returns (bool)"
 ];
 
-// OMNI-NEXUS Global Protocol (v4.4 — The Royal VIP Edition) Core ABI
-export const OMNI_NEXUS_CORE_ABI = [
+// TURBOVAULT GLOBAL Protocol (v4.4 — The Royal VIP Edition) Core ABI
+export const TURBOVAULT_CORE_ABI = [
   // Events
   "event Registered(address indexed user, address indexed referrer, uint256 globalIndex, uint256 packageUSD)",
   "event PackageActivated(address indexed user, uint256 packageUSD, bool isRebirth)",
@@ -63,5 +63,6 @@ export const OMNI_NEXUS_CORE_ABI = [
   "function globalUsers(uint256) view returns (address)"
 ];
 
-export const SOVEREIGN_CORE_ABI = OMNI_NEXUS_CORE_ABI;
-export const ALTRUVA_CORE_ABI = OMNI_NEXUS_CORE_ABI;
+export const OMNI_NEXUS_CORE_ABI = TURBOVAULT_CORE_ABI;
+export const SOVEREIGN_CORE_ABI = TURBOVAULT_CORE_ABI;
+export const ALTRUVA_CORE_ABI = TURBOVAULT_CORE_ABI;

@@ -23,7 +23,7 @@ export const isWalletConnectConfigured = Boolean(
 );
 
 const appOrigin =
-  typeof window !== "undefined" ? window.location.origin : "https://altruva.live";
+  typeof window !== "undefined" ? window.location.origin : "https://turbovaultglobal.live";
 const appUrl = `${appOrigin}/`;
 const appIcon = `${appOrigin}/favicon-32x32.png`;
 
@@ -33,8 +33,8 @@ const BSC_MAINNET_RPC =
   import.meta.env.VITE_BSC_RPC || "https://binance.llamarpc.com";
 
 export const wagmiConfig = getDefaultConfig({
-  appName: "Altruva",
-  appDescription: "Altruva 100% Community Distribution Model in USDT on BNB Smart Chain",
+  appName: "TurboVault Global",
+  appDescription: "TurboVault Global 100% Community Distribution Model in USDT on BNB Smart Chain",
   appUrl,
   appIcon,
   projectId: walletConnectProjectId,
@@ -60,7 +60,7 @@ export const wagmiConfig = getDefaultConfig({
   ],
   walletConnectParameters: {
     metadata: {
-      name: "Altruva",
+      name: "TurboVault Global",
       description: "100% Community Distribution Model in USDT on BNB Smart Chain",
       url: appUrl,
       icons: [appIcon],

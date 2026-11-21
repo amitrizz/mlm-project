@@ -1,12 +1,13 @@
 /**
- * 🌐 OMNI-NEXUS GLOBAL PROTOCOL (v4.4 — The Royal VIP Edition)
+ * 🌐 TURBOVAULT GLOBAL PROTOCOL (v4.4 — The Royal VIP Edition)
  * 100% P2P Instant Split on BNB Smart Chain (BSC) in USDT (BEP-20)
  * Featuring 15% Silent Admin Extraction, 40-Level Depth, 10 Up/5 Down Globaline,
  * Smart Compounding Package Loop, and The Royal Crown Leaderboard & Photo Hub.
  */
 
-export const PROTOCOL_NAME = "Omni-Nexus Protocol";
-export const PROTOCOL_FULL_NAME = "Omni-Nexus Global Protocol (v4.4 — The Royal VIP Edition)";
+export const PROTOCOL_NAME = "TurboVault Global";
+export const PROTOCOL_FULL_NAME = "TurboVault Global Protocol (v4.4 — The Royal VIP Edition)";
+export const PROTOCOL_DOMAIN = "turbovaultglobal.live";
 export const PROTOCOL_EDITION = "The Royal VIP Edition";
 export const BLOCKCHAIN_NETWORK = "BNB Smart Chain (BSC)";
 export const TOKEN_STANDARD = "USDT (BEP-20)";

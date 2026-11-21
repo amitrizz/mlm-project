@@ -237,7 +237,7 @@ export default function App() {
         }
       }
 
-      // 2. Fetch Altruva Core User Account
+      // 2. Fetch TurboVault Core User Account
       const coreAddr = addresses.sovereignCore || addresses.altruvaCore;
       if (coreAddr) {
         try {
@@ -454,7 +454,7 @@ export default function App() {
           claimableWorkingUSD: 45.00,
           claimableEarnings: 60.00
         }));
-        showToast(`🎉 $${amountUSD} USDT Altruva Package Activated!`);
+        showToast(`🎉 $${amountUSD} USDT TurboVault Package Activated!`);
       }
     } catch (err) {
       console.error(err);
@@ -526,7 +526,7 @@ export default function App() {
           <div className="nav-brand" onClick={() => setActiveTab(isConnected ? 'dashboard' : 'manual')}>
             <AltruvaLogo size={36} />
             <div className="brand-text-box">
-              <span className="brand-name">OMNI-NEXUS</span>
+              <span className="brand-name">TURBOVAULT GLOBAL</span>
               <span className="brand-sub">PROTOCOL v4.4 · THE ROYAL VIP EDITION</span>
             </div>
           </div>

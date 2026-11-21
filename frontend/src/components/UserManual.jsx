@@ -19,8 +19,8 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
 
   const faqs = [
     {
-      q: "What is Omni-Nexus Global Protocol v4.4?",
-      a: "Omni-Nexus Global Protocol (v4.4 — The Royal VIP Edition) is a peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. It features the Royal Crown Throne, Photo-Upload Hub, Smart Compounding loops, and up to 40 levels of matrix generation depth."
+      q: "What is TurboVault Global Protocol v4.4?",
+      a: "TurboVault Global Protocol (v4.4 — The Royal VIP Edition) is a peer-to-peer (P2P) decentralized mathematical protocol deployed on BNB Chain (BSC). All transactions run purely in USDT (BEP-20) with gas paid in BNB. It features the Royal Crown Throne, Photo-Upload Hub, Smart Compounding loops, and up to 40 levels of matrix generation depth."
     },
     {
       q: "How does the Live Split work across the 5 Elite Pools?",
@@ -63,7 +63,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
           <Sparkles size={14} className="gold" /> {PROTOCOL_EDITION.toUpperCase()}
         </div>
         <h1 className="manual-title">
-          WELCOME TO <span className="gold-gradient-text">OMNI-NEXUS v4.4</span>
+          WELCOME TO <span className="gold-gradient-text">TURBOVAULT GLOBAL v4.4</span>
         </h1>
         <p className="manual-subtitle cyan-gradient-text">
           The Royal VIP Edition · BNB Chain (BSC) · Pure USDT (BEP-20) · 40-Level Compounding Matrix
@@ -232,7 +232,7 @@ export default function UserManual({ onConnectWallet, onOpenPresentation }) {
         <div className="manual-sec-header">
           <span className="sec-pill">FAQ</span>
           <h2>Frequently Asked Questions</h2>
-          <p>Everything you need to know about Omni-Nexus Protocol v4.4:</p>
+          <p>Everything you need to know about TurboVault Global Protocol v4.4:</p>
         </div>
 
         <div className="faq-accordion-list">

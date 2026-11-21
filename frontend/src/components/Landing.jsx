@@ -20,7 +20,7 @@ export default function Landing({ onLaunchApp, onOpenPresentation }) {
         </div>
 
         <h1 className="hero-headline">
-          ALTRUVA <span className="gold-gradient-text">COMMUNITY</span>
+          TURBOVAULT <span className="gold-gradient-text">GLOBAL</span>
         </h1>
         <div className="hero-subline cyan-gradient-text">
           100% COMMUNITY DISTRIBUTION MODEL
@@ -63,10 +63,10 @@ export default function Landing({ onLaunchApp, onOpenPresentation }) {
         </div>
       </section>
 
-      {/* Why Altruva vs Conventional Projects */}
+      {/* Why TurboVault Global vs Conventional Projects */}
       <section className="why-altruva-section">
         <div className="section-title-wrap">
-          <span className="section-pill">Why Altruva?</span>
+          <span className="section-pill">Why TurboVault Global?</span>
           <h2>A Mathematically Sustainable Ecosystem</h2>
           <p>No proprietary token manipulation, no inflationary printing, no false promises.</p>
         </div>
@@ -185,7 +185,7 @@ export default function Landing({ onLaunchApp, onOpenPresentation }) {
       {/* The X-Factor Reinvestment Engine */}
       <section className="xfactor-showcase-section glass-panel">
         <div className="xfactor-badge-pill">
-          <RefreshCw size={14} /> THE X-FACTOR OF ALTRUVA
+          <RefreshCw size={14} /> THE X-FACTOR OF TURBOVAULT GLOBAL
         </div>
         <h2>Withdrawal & Auto Re-Investment Plan</h2>
         <p className="xfactor-text">
@@ -217,7 +217,7 @@ export default function Landing({ onLaunchApp, onOpenPresentation }) {
 
         <div className="xfactor-bottom-cta">
           <button className="cta-launch-btn" onClick={onLaunchApp}>
-            Join Altruva DApp Today <ArrowRight size={18} />
+            Join TurboVault Global DApp Today <ArrowRight size={18} />
           </button>
         </div>
       </section>

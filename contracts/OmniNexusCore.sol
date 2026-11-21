@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 /**
- * @title OMNI-NEXUS GLOBAL PROTOCOL (v4.4 — The Royal VIP Edition)
+ * @title TURBOVAULT GLOBAL PROTOCOL (v4.4 — The Royal VIP Edition)
  * @notice The Ultimate Compounding Matrix & Royal VIP Live Ranking Protocol
  * @dev 100% P2P Instant Split on BNB Smart Chain (BSC) in USDT (BEP-20)
  * 
@@ -171,7 +171,7 @@ contract OmniNexusCore is Ownable, ReentrancyGuard {
     }
 
     /**
-     * @notice Register and activate package in OMNI-NEXUS Global Protocol
+     * @notice Register and activate package in TurboVault Global Protocol
      */
     function registerAndActivate(address _referrer, uint256 _packageUSD) external nonReentrant {
         require(!users[msg.sender].registered, "Already registered");

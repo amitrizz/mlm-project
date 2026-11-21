@@ -58,8 +58,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             initialChain={bscTestnet}
             modalSize="compact"
             appInfo={{
-              appName: 'Altruva',
-              learnMoreUrl: 'https://altruva.live',
+              appName: 'TurboVault Global',
+              learnMoreUrl: 'https://turbovaultglobal.live',
             }}
           >
             <App />

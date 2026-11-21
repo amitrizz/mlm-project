@@ -192,7 +192,7 @@ export default function RoyalCrownLeaderboard({
         <div className="rhh-content">
           <div className="rhh-badge-row">
             <span className="royal-crown-badge">
-              <Crown size={16} className="gold pulse" /> OMNI-NEXUS ROYAL THRONE
+              <Crown size={16} className="gold pulse" /> TURBOVAULT GLOBAL ROYAL THRONE
             </span>
             <span className="royal-vip-tag">👑 THE ROYAL VIP EDITION (v4.4)</span>
           </div>
